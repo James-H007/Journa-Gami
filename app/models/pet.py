@@ -15,7 +15,7 @@ class Pet(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    user = db.relationship("User", back_populates="pet", cascade='all, delete-orphan')
+    user = db.relationship("User", back_populates="pet")
 
     def to_dict(self):
         return {

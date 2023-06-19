@@ -18,7 +18,9 @@ class User(db.Model, UserMixin):
 
     entries = db.relationship("Entry", back_populates="user", cascade='all, delete-orphan')
 
-    pet = db.relationship("Pet", back_populates="user", cascade='all, delete-orphan')
+    pet = db.relationship("Pet", back_populates="user")
+
+    tags = db.relationship("Tag", back_populates='user', cascade='all, delete-orphan')
     @property
     def password(self):
         return self.hashed_password
