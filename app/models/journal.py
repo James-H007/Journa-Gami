@@ -39,6 +39,7 @@ class Entry(db.Model):
     journal_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('journals.id')), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String(36))
+    banner = db.Column(db.String(2000))
     content = db.Column(db.String(15000))
     favorite = db.Column(db.Boolean)
     mood = db.Column(db.String(100))
