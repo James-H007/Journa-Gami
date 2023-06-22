@@ -44,7 +44,7 @@ def my_entries():
 @login_required
 def entry_create(journal_id):
     """
-    Create a entry based on user id
+    Create a entry based on journal id
     """
     print('Receive request to create post for journal id:', journal_id)
 
@@ -76,7 +76,7 @@ def entry_create(journal_id):
 @login_required
 def entry_edit(id):
     """
-    Edit an entry based on user id
+    Edit an entry based on entry id
     """
 
     userId = current_user.id

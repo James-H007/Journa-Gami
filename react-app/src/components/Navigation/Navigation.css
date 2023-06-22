@@ -5,3 +5,30 @@
 .hidden {
   display: none;
 }
+
+.logo {
+  height: 50px;
+  width: auto;
+}
+
+.navBar {
+  /* background-color: rgb(51, 51, 59); */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style: none;
+  /* border-bottom: 1px solid lightgray; */
+  justify-content: space-between;
+  background-color: rgb(94, 164, 255);
+  margin-top: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-radius: 40px;
+  height: 80px;
+}
+
+.profile-button {
+  width: 50px;
+  height: 50px;
+}
