@@ -10,15 +10,15 @@
 }
 
 .land-container-1 {
-    height: 89vh;
+    height: 100%;
     width: 100%;
-    background-color: rgb(255, 71, 71);
+    background-color: rgb(218, 210, 189);
     display: flex;
     flex-direction: column;
 }
 
 .user-info-container {
-    height: 20vh;
+    height: 100%;
     background-color: black;
     margin: 10px;
     position: relative;
@@ -31,8 +31,8 @@
 
 .icon-wrapper {
     position: absolute;
-
     left: 5px;
+
     padding: 5px;
     border-radius: 10px;
 }
@@ -51,7 +51,7 @@
 
 .user-banner {
     width: 100%;
-    height: 80px;
+    height: 100px;
     object-fit: cover;
     border-radius: 5px 5px;
 }
@@ -76,23 +76,147 @@
 
 .virtual-pet-box {
     margin: 0 auto;
-    height: 80%;
+    height: 500px;
     width: 100%;
     background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     padding: 10px;
     border-radius: 10px;
 }
 
-.calendar {
-    height: 70%;
+.pet {
+    border-radius: 5px;
+    height: 400px;
+    width: 600px;
+    object-fit: fill;
+    margin-top: 5px;
+
+}
+
+.pet-text {
+    font-family: 'Rubik';
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.chat-wrapper {
+    height: 520px;
     width: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.chat-header {
+    background-color: black;
+    width: 100%;
+    height: 50px;
+    font-family: 'Rubik';
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+
+.chat-container {
+    height: 450px;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(240, 240, 240);
+}
+
+.message {
+    border-bottom: solid 1px black;
+
+    padding: 20px;
+    font-family: 'Rubik';
+}
+
+.send-chat-form input {
+    width: 100%;
+    border: none;
+    font-size: 25px;
+    padding: 5px;
+    font-family: 'Rubik';
+    background-color: rgb(187, 187, 187);
+}
+
+.send-chat-form button {
+    display: none;
+}
+
+.pet-info-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.pet-info-wrapper {
+    width: 100%;
+    height: 100%;
+    font-family: 'Rubik';
+}
+
+.about-me-pet-header {
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    padding-left: 5px;
+}
+
+.about-me {
+    height: 107px;
+    padding-left: 5px;
+    font-size: 20px;
     background-color: white;
+    border: 1px solid black;
+}
+
+.journal-buttons {
+    width: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .land-container-2 {
     height: 89vh;
     width: 100%;
     background-color: rgb(93, 217, 255);
+}
+
+.journal-button {
+    object-fit: contain;
+    width: 100px;
+    height: 100px;
+}
+
+.journal-button:hover {
+    cursor: pointer;
+    animation: tilt-shaking 0.5s 3;
+}
+
+
+@keyframes tilt-shaking {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: rotate(0eg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
