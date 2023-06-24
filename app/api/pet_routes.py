@@ -90,6 +90,11 @@ def pet_edit(id):
         pet.name = data["name"]
     if "happiness" in data:
         pet.happiness = data["happiness"]
+    if "avatar_img_url" in data:
+        pet.avatar_img_url = data["avatar_img_url"]
+    if "banner_img_url" in data:
+        pet.banner_img_url = data["banner_img_url"]
+
 
     db.session.commit()
     return {'pet': pet.to_dict()}, 200

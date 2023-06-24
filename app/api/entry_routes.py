@@ -40,7 +40,7 @@ def my_entries():
 
     return {'entries': [entry.to_dict() for entry in user_entries]}, 200
 
-@entry_routes.route("/create", methods=["POST"])
+@entry_routes.route("/create/<int:journal_id>", methods=["POST"])
 @login_required
 def entry_create(journal_id):
     """
@@ -109,7 +109,7 @@ def entry_edit(id):
     db.session.commit()
     return {"entry": entry.to_dict()}, 200
 
-@entry_routes.route('/<int: id>/ delete', methods=['DELETE'])
+@entry_routes.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def entry_delete(id):
     """
