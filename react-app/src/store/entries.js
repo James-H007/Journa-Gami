@@ -139,3 +139,44 @@ export const removeEntry = (entry_id) => async (dispatch) => {
 }
 
 const initialState = { allEntries: [], myEntries: [], currentEntry: null }
+
+export default function entriesReducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_ALL_ENTRIES:
+            return {
+                ...state,
+                allEntries: action.payload
+            }
+        case GET_MY_ENTRIES:
+            return {
+                ...state,
+                myEntries: action.payload
+            }
+        case GET_ENTRY_ID:
+            return {
+                ...state,
+                currentEntry: action.payload
+            }
+        case CREATE_ENTRY:
+            return {
+                ...state,
+                allEntries: [...state.allEntries, action.payload],
+                myEntries: state.myEntries.concat(action.payload)
+            }
+        case EDIT_ENTRIES:
+            const index = state.allEntries.findIndex(i => i.id === action.payload.id)
+            let newEntry = [...state.allEntries]
+            if (index !== -1) {
+                newEntry[index] = action.payload
+            }
+            return {
+                ...state,
+                allEntries: newEntry
+            }
+        case DELETE_ENTRY:
+            return {
+                ...state,
+                allEntries: state.allEntries.filter(i => i.id !== action.payload)
+            }
+    }
+}

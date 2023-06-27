@@ -6,69 +6,79 @@ const LandingPage = () => {
     const background = "https://i.ytimg.com/vi/DiHn4oO7TvU/maxresdefault.jpg"
     const pet = "https://thumbs.gfycat.com/BleakAgileChick-max-1mb.gif"
     return (
-        <div>
-            <div className="land-container">
-                <div className="land-container-1">
-                    <div className="user-info-container">
-                        <div className="icon-wrapper">
-                            <img
-                                src={avatar}
-                                alt="avatar"
-                                className="user-icon"
-                            />
-                        </div>
-                        <div className="user-info-stack">
-                            <img
-                                src={background}
-                                alt="background"
-                                className="user-banner"
-                            />
-                            <div className="user-greeting"> Welcome Miranda!</div>
-                        </div>
-                    </div>
-                    <div className="virtual-pet-container">
-                        <div className="virtual-pet-box">
-                            <img src={pet} alt="pet" className="pet" />
-                            <div className="pet-text">🔴BROADCASTING LIVE...</div>
-                        </div>
-                        <div className="chat-wrapper">
-                            <div className="chat-header">Chat</div>
-                            <div className="chat-container">
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                                <div className="message">Froggy found a coin.</div>
-                            </div>
-                            <form className="send-chat-form">
-                                <input type="text" placeholder="Streamer has restricted chat..." disabled={true} />
-                                <button type="submit" disabled={true}>Send</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="pet-info-container">
-                            <div className="pet-info-wrapper">
-                                <div className="about-me-pet-header"> About Me</div>
-                                <div className="about-me">Hello my name is Froggy. I'm here to help my owner, Miranda!</div>
-                            </div>
-                            <div className="journal-buttons">
-                                <img src={sketchbook} alt="journal" className="journal-button" />
-                            </div>
-                        </div>
-
-                    </div>
+        <div className="landing-wrapper">
+            <div className="landing-container">
+                <h1 className="landing-header">Welcome to Journal-Gami</h1>
+                <div className="landing-select">
+                    Dodo
                 </div>
-
             </div>
+
         </div>
     )
 }
 
 export default LandingPage
+
+
+
+// <div className="land-container">
+// <div className="land-container-1">
+//     <div className="user-info-container">
+//         <div className="icon-wrapper">
+//             <img
+//                 src={avatar}
+//                 alt="avatar"
+//                 className="user-icon"
+//             />
+//         </div>
+//         <div className="user-info-stack">
+//             <img
+//                 src={background}
+//                 alt="background"
+//                 className="user-banner"
+//             />
+//             <div className="user-greeting"> Welcome Miranda!</div>
+//         </div>
+//     </div>
+//     <div className="virtual-pet-container">
+//         <div className="virtual-pet-box">
+//             <img src={pet} alt="pet" className="pet" />
+//             <div className="pet-text">🔴BROADCASTING LIVE...</div>
+//         </div>
+//         <div className="chat-wrapper">
+//             <div className="chat-header">Chat</div>
+//             <div className="chat-container">
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//                 <div className="message">Froggy found a coin.</div>
+//             </div>
+//             <form className="send-chat-form">
+//                 <input type="text" placeholder="Streamer has restricted chat..." disabled={true} />
+//                 <button type="submit" disabled={true}>Send</button>
+//             </form>
+//         </div>
+//     </div>
+//     <div>
+//         <div className="pet-info-container">
+//             <div className="pet-info-wrapper">
+//                 <div className="about-me-pet-header"> About Me</div>
+//                 <div className="about-me">Hello my name is Froggy. I'm here to help my owner, Miranda!</div>
+//             </div>
+//             <div className="journal-buttons">
+//                 <img src={sketchbook} alt="journal" className="journal-button" />
+//             </div>
+//         </div>
+
+//     </div>
+// </div>
+
+// </div>
