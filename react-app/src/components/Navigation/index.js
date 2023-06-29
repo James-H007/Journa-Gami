@@ -17,10 +17,10 @@ function Navigation({ isLoaded }) {
 	return (
 		<ul className='navBar'>
 			<li>
-				<NavLink exact to="/"><img src={avatar} alt="avatar" className='avatar-nav' /></NavLink>
+				<NavLink exact to="/home"><img src={avatar} alt="avatar" className='avatar-nav' /></NavLink>
 			</li>
 			<li>
-				<img src={box} alt="boxes" className='profile-button' />
+				<NavLink exact to="/journals"><img src={box} alt="boxes" className='profile-button' /></NavLink>
 			</li>
 			<li>
 				<img src={tags} alt="tags" className='profile-button' />

@@ -113,7 +113,7 @@ export const createJournal = (journal) => async (dispatch) => {
 
 // @journal_routes.route('/<int:id>/edit', methods=["PUT"])
 export const editAJournal = (journal) => async (dispatch) => {
-    const resposne = await fetch(`/api/journals/${id}/edit`, {
+    const response = await fetch(`/api/journals/${id}/edit`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -144,17 +144,17 @@ export const removeJournalById = (id) => async (dispatch) => {
 
 const initialState = { journals: [], currentJournal: null, myJournals: [] }
 
-export default function blogReducer(state = initialState, action) {
+export default function journalReducer(state = initialState, action) {
     switch (action.type) {
         case GET_JOURNALS:
             return {
                 ...state,
-                blogs: action.payload //<<-- state => state.journals.journals
+                journals: action.payload //<<-- state => state.journals.journals
             }
         case GET_JOURNAL_BY_ID:
             return {
                 ...state,
-                currentJournal: action.payload //<<-- state => state.blogs.currentJournal
+                currentJournal: action.payload //<<-- state => state.journals.currentJournal
             }
         case GET_MY_JOURNALS:
             return {
@@ -164,7 +164,7 @@ export default function blogReducer(state = initialState, action) {
         case CREATE_JOURNAL:
             return {
                 ...state,
-                blogs: [...state.journals, action.payload]
+                journals: [...state.journals, action.payload]
             }
         case EDIT_JOURNAL_BY_ID:
             const index = state.journals.findIndex(i => i.id === action.payload.id)
@@ -182,5 +182,7 @@ export default function blogReducer(state = initialState, action) {
                 ...state,
                 journals: state.journals.filter(i => i.id !== action.payload)
             }
+        default:
+            return state;
     }
 }
