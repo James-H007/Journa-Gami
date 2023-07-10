@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import "./app.css"
 import LandingPage from "./components/LandingPage";
 import JournalPage from "./components/Journals";
+import JournalInfo from "./components/JournalInfo";
+import EntryPage from "./components/Entry";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +32,12 @@ function App() {
             </Route>
             <Route path="/signup">
               <SignupFormPage />
+            </Route>
+            <Route path="/entries/:id">
+              <EntryPage />
+            </Route>
+            <Route path="/journals/:id">
+              <JournalInfo />
             </Route>
             <Route path="/journals">
               <JournalPage />

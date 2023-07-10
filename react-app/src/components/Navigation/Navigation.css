@@ -22,8 +22,10 @@
   padding: 10px;
   background-color: rgb(27, 27, 27);
   width: 100px;
-  height: 100vh;
+  height: 100%;
 }
+
+
 
 .avatar-nav {
   object-fit: cover;

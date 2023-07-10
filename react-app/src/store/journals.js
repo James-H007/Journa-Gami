@@ -112,7 +112,7 @@ export const createJournal = (journal) => async (dispatch) => {
 }
 
 // @journal_routes.route('/<int:id>/edit', methods=["PUT"])
-export const editAJournal = (journal) => async (dispatch) => {
+export const editAJournal = (id, journal) => async (dispatch) => {
     const response = await fetch(`/api/journals/${id}/edit`, {
         method: "PUT",
         headers: {

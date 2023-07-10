@@ -1,32 +1,59 @@
-import "./journalModal.css"
-import React, { useState } from "react";
-import { login } from "../../store/session";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import "./journalModal.css"
-import { createJournal, getUserJournals } from "../../store/journals";
 
-const JournalFormModal = () => {
+import React, { useEffect, useState } from "react";
+import { login } from "../../store/session";
+import { useDispatch, useSelector } from "react-redux";
+import { useModal } from "../../context/Modal";
+
+import { createJournal, editAJournal, getJournalById, getUserJournals } from "../../store/journals";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+
+const JournalEditFormModal = () => {
     const dispatch = useDispatch();
     const [title, setTitle] = useState("");
     const [cover, setCover] = useState("");
     const [errors, setErrors] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false)
     const { closeModal } = useModal();
+    const { id } = useParams()
+    const history = useHistory()
     const graphic = "https://cdn.dribbble.com/users/763353/screenshots/5400172/media/4b0d5dc8f004d298781b7c9f31cc33df.png?compress=1&resize=800x600&vertical=center"
+    const currentJournal = useSelector(state => state.journals.currentJournal)
+    useEffect(async () => {
+        await dispatch(getJournalById(id))
+        await setIsLoaded(true)
+    }, [])
+
+    useEffect(() => {
+        if (isLoaded && currentJournal) {
+            setTitle(currentJournal.title)
+            setCover(currentJournal.cover)
+        }
+    }, [isLoaded, currentJournal])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let form = { title, cover };
-        if (title.length > 0) {
-            form.title = title
+        // let form = { title, cover };
+        if (title.length === 0) {
+            return
         }
-        if (cover) {
-            form.cover = cover
+        if (!cover) {
+            return
         }
 
-        const data = await dispatch(createJournal(form));
+        const updatedJournal = {
+            title: title,
+            cover: cover
+        }
+        console.log(updatedJournal)
+        // const data = await dispatch(createJournal(form));
+        const data = await dispatch(editAJournal(currentJournal.id, updatedJournal))
         await dispatch(getUserJournals())
+        await dispatch(getJournalById(currentJournal.id))
         closeModal()
+        // if (data) {
+        //     history.push(`/`)
+        // }
         // if (data) {
         //     setErrors(data);
         // } else {
@@ -44,7 +71,7 @@ const JournalFormModal = () => {
                         </div>
                     </div>
                     <div className="journal-form-info">
-                        <h1>Create a Journal</h1>
+                        <h1>Edit a Journal</h1>
                         <form className="journal-form-input" onSubmit={handleSubmit}>
                             <input
                                 type="text"
@@ -62,7 +89,7 @@ const JournalFormModal = () => {
                                 placeholder="Cover"
                                 className="journal-input"
                             />
-                            <button type="submit" className="signup-button">Create</button>
+                            <button type="submit" className="signup-button">Edit</button>
                         </form>
                     </div>
                 </div>
@@ -71,4 +98,4 @@ const JournalFormModal = () => {
     )
 }
 
-export default JournalFormModal
+export default JournalEditFormModal

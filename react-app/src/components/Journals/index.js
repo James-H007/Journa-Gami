@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react"
+import { NavLink } from 'react-router-dom';
 import "./journal.css"
 import { useDispatch, useSelector } from "react-redux"
 import { getUserJournals } from "../../store/journals"
 import OpenModalButton from "../OpenModalButton";
 import JournalFormModal from "../JournalFormModal";
-
+import loadingGif from "../../assets/giphy.gif"
+import OpenModalButtonIcon from "../OpenModalButtonIcon";
+import hammer from "../../assets/hammer-solid.svg"
+import plus from "../../assets/plus-solid.svg"
 const JournalPage = () => {
-    const dog = "https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg"
+
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user)
@@ -43,26 +47,34 @@ const JournalPage = () => {
     }, [])
     return (
         <>
-            {!isLoaded && <p>Loading...</p>}
+            {!isLoaded && (
+                <div className="loading">
+                    <img src={loadingGif} alt="loading-gif" />
+                    <p>Loading...</p>
+                </div>)}
             {
                 isLoaded && (
                     <div className="journal-wrapper">
                         <div className="journal-container">
                             {myJournals.map((journal, i) => (
-                                <div className="journal-holder" key={i}>
-                                    <div className="journal-cover"><img src={journal.cover} alt="cover" className="journal-image" /></div>
-                                    <div className="journal-title">{journal.title}</div>
-                                </div>
+                                <NavLink exact to={`/journals/${journal.id}`} key={i}>
+                                    <div className="journal-holder" >
+                                        <div className="journal-cover"><img src={journal.cover} alt="cover" className="journal-image" /></div>
+                                        <div className="journal-title">{journal.title}</div>
+                                    </div>
+                                </NavLink>
                             ))
                             }
                             <div className="journal-button">
-                                <OpenModalButton
+                                <OpenModalButtonIcon
+                                    icon={plus}
                                     buttonText="Create a Journal"
                                     onItemClick={closeMenu}
                                     modalComponent={<JournalFormModal />}
                                     className="journal-button"
                                 />
                             </div>
+
 
                         </div>
 

@@ -178,5 +178,7 @@ export default function entriesReducer(state = initialState, action) {
                 ...state,
                 allEntries: state.allEntries.filter(i => i.id !== action.payload)
             }
+        default:
+            return state;
     }
 }
