@@ -10,6 +10,7 @@ import LandingPage from "./components/LandingPage";
 import JournalPage from "./components/Journals";
 import JournalInfo from "./components/JournalInfo";
 import EntryPage from "./components/Entry";
+import EntryCreate from "./components/EntryCreate";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
             </Route>
             <Route path="/entries/:id">
               <EntryPage />
+            </Route>
+            <Route path="/journals/:id/entries/create">
+              <EntryCreate />
             </Route>
             <Route path="/journals/:id">
               <JournalInfo />

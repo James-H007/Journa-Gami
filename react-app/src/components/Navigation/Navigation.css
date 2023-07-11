@@ -42,7 +42,8 @@
 
 .profile-button:hover {
   cursor: pointer;
-  animation: 1s tilt-shaking
+  animation: 1s tilt-shaking;
+  color: red;
 }
 
 @keyframes tilt-shaking {
