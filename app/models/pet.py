@@ -10,10 +10,14 @@ class Pet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(26), nullable=False)
-    happiness = db.Column(db.Integer, nullable=False, default=0)
+    happiness = db.Column(db.Integer, nullable=False, default=100)
     fetch = db.Column(db.Boolean, nullable=False, default=False)
+    avatar_img_url = db.Column(db.String(1500), default = "https://cdn-icons-png.flaticon.com/512/5569/5569224.png")
+    banner_img_url = db.Column(db.String(1500), default = "https://www.csn.edu/__data/assets/image/0031/19669/default-banner-img_1.png")
+    state = db.Column(db.Integer, default = 1)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 
     user = db.relationship("User", back_populates="pet")
 
@@ -24,6 +28,9 @@ class Pet(db.Model):
             "name": self.name,
             "happiness": self.happiness,
             "fetch": self.fetch,
+            "avatarImgUrl": self.avatar_img_url,
+            "bannerImgUrl": self.banner_img_url,
+            "state": self.state,
             "createdAt": self.created_at,
             "updatedAt": self.updated_at
         }

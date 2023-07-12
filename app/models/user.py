@@ -36,5 +36,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'journals': [journal.to_dict() for journal in self.journals],
+            'entries': [entry.to_dict() for entry in self.entries],
+            'tags': [tag.to_dict() for tag in self.tags]
         }

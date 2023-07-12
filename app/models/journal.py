@@ -26,7 +26,18 @@ class Journal(db.Model):
             'title': self.title,
             'cover': self.cover,
             'createdAt': self.created_at,
-            'updatedAt': self.updated_at
+            'updatedAt': self.updated_at,
+            'entries': [entry.to_dict() for entry in self.entries]
+        }
+
+    def to_dict_no_entries(self):
+        return {
+            'id': self.id,
+            'ownerId': self.owner_id,
+            'title': self.title,
+            'cover': self.cover,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
         }
 
 class Entry(db.Model):
@@ -39,11 +50,13 @@ class Entry(db.Model):
     journal_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('journals.id')), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String(36))
+    banner = db.Column(db.String(2000))
     content = db.Column(db.String(15000))
     favorite = db.Column(db.Boolean)
     mood = db.Column(db.String(100))
     weather = db.Column(db.String(1000))
     location = db.Column(db.String(1000))
+    ticket = db.Column(db.Integer, default=0, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -62,12 +75,15 @@ class Entry(db.Model):
             'ownerId': self.owner_id,
             'title': self.title,
             'content': self.content,
+            'banner': self.banner,
             'favorite': self.favorite,
             'mood': self.mood,
             'weather': self.weather,
             'location': self.location,
             'createdAt': self.created_at,
-            'updatedAt': self.updated_at
+            'updatedAt': self.updated_at,
+            'tags': [tag.to_dict() for tag in self.tags],
+            'images': [image.to_dict() for image in self.entry_images]
         }
 
 class Tag(db.Model):

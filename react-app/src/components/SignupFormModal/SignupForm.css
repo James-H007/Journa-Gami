@@ -1,0 +1,76 @@
+.signup-modal-wrapper {
+    display: flex;
+}
+
+.signup-container {
+    font-family: 'Rubik';
+}
+
+.signup-graphic {
+    height: 610px;
+    background-color: black;
+    margin-bottom: 0px;
+}
+
+.signup-graphic-pic {
+    object-fit: cover;
+    height: 610px;
+    width: 400px;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+.signup-header {
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.signup-h2 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 0px;
+}
+
+.signup-form {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 400px;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Rubik';
+    gap: 20px
+}
+
+.signup-form input {
+    padding: 10px;
+    width: 300px;
+    margin: 5px;
+    border-radius: 20px;
+    height: 30px;
+    border: none;
+    background-color: rgb(243, 243, 243);
+}
+
+.signup-button {
+    width: 200px;
+    height: 70px;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(57, 86, 252);
+    color: white;
+    font-family: 'Rubik';
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.signup-button:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
