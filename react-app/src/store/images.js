@@ -55,6 +55,20 @@ const deleteImage = (imageId) => {
     }
 }
 
+export const getAllImages = () => async (dispatch) => {
+    const response = await fetch(`/api/entries/images`, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if (response.ok) {
+        const images = await response.json()
+        dispatch(getImages(images))
+        return images
+    }
+}
+
 //@entry_routes.route('/<int:id>/images')
 export const getImageByEntryId = (id) => async (dispatch) => {
     const response = await fetch(`/api/entries/${id}/images`, {
@@ -141,5 +155,44 @@ export const removeImage = (image_id) => async (dispatch) => {
         if (data.message === "Successfully deleted") {
             dispatch(deleteImage(entry_id))
         }
+    }
+}
+
+const initialState = { allImages: [], entryImages: [], currentImage: null }
+
+export default function imagesReducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_ALL_IMAGES:
+            return {
+                ...state,
+                allImages: action.payload
+            }
+        case GET_IMAGE_ID:
+            return {
+                ...state,
+                currentImage: action.payload
+            }
+        case CREATE_IMAGE:
+            return {
+                ...state,
+                allImages: [...state.allImages, action.payload]
+            }
+        case EDIT_IMAGE:
+            const index = state.allImages.findIndex(i => i.id === action.payload.id)
+            let newImage = [...state.allImages]
+            if (index !== -1) {
+                newEntry[index] = action.payload
+            }
+            return {
+                ...state,
+                allImages: newImage
+            }
+        case DELETE_IMAGE:
+            return {
+                ...state,
+                allImages: state.allImages.filter(i => i.id !== action.payload)
+            }
+        default:
+            return state;
     }
 }
