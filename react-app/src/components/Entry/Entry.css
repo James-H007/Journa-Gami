@@ -178,14 +178,3 @@
     right: 20px;
     font-family: 'Rubik';
 }
-
-.entry-form-banner {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    background-color: black;
-    width: 400px;
-    height: 200px;
-    border-radius: 10px;
-    animation: float 5s infinite;
-}

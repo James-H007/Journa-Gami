@@ -91,3 +91,55 @@ export const getImageById = (id) => async (dispatch) => {
         console.log('Error: Image not found')
     }
 }
+
+//@entry_routes.route('/<int:id>/images', methods = ["POST"])
+export const createImageByEntry = (entry_id, formData) => async (dispatch) => {
+    const response = await fetch(`/api/entries/${entry_id}/images`, {
+        method: "POST",
+        body: formData
+    })
+
+    if (response.ok) {
+        const { image } = await response.json()
+        dispatch(createImage(image))
+        return image
+    }
+
+    else {
+        console.log('Error: Problem with creating')
+    }
+}
+
+//@entry_routes.route('/images/<int:id>', methods = ["EDIT"])
+export const changeImage = (entry_id, formData) => async (dispatch) => {
+    const response = await fetch(`/api/entries/images/${entry_id}`, {
+        method: "PUT",
+        body: formData
+    })
+
+    if (response.ok) {
+        const { image } = await response.json()
+        dispatch(editImage(image))
+        return image
+    }
+
+    else {
+        console.log('Error: Problem with editing image')
+    }
+
+}
+
+//@entry_routes.route('/images/<int:id>', methods = ["DELETE"])
+export const removeImage = (image_id) => async (dispatch) => {
+    const response = await fetch(`/api/entries/images/${image_id}`, {
+        method: "DELETE",
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+
+        if (data.message === "Successfully deleted") {
+            dispatch(deleteImage(entry_id))
+        }
+    }
+}
