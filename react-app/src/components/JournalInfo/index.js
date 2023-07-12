@@ -64,10 +64,10 @@ const JournalInfo = () => {
 
     const closeMenu = () => setShowMenu(false);
 
-    const formatDate = (date) => {
-        const shrunk = { month: "short", day: "numeric" };
-        return new Date(dateString).toLocaleDateString("en-US", options);
-    }
+    // const formatDate = (date) => {
+    //     const shrunk = { month: "short", day: "numeric" };
+    //     return new Date(dateString).toLocaleDateString("en-US", options);
+    // }
 
 
 
