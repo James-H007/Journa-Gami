@@ -10,5 +10,5 @@ def validate_image(form, field):
 
 
 class EntryImageForm(FlaskForm):
-    image_url = StringField('Image URL', validators=validate_image)
+    image_url = StringField('Image URL', validators=[validate_image])
     submit = SubmitField('Create')

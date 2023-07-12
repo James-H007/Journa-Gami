@@ -5,3 +5,65 @@
 .hidden {
   display: none;
 }
+
+.logo {
+  height: 50px;
+  width: auto;
+  margin-left: 10px;
+}
+
+.navBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  justify-content: flex-start;
+  gap: 30px;
+  padding: 10px;
+  background-color: rgb(27, 27, 27);
+  width: 100px;
+  height: 100%;
+}
+
+
+
+.avatar-nav {
+  object-fit: cover;
+  height: 80px;
+  width: 80px;
+  border-radius: 50px;
+}
+
+
+.profile-button {
+  width: 40px;
+  height: 40px;
+}
+
+.profile-button:hover {
+  cursor: pointer;
+  animation: 1s tilt-shaking;
+  color: red;
+}
+
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(0eg);
+  }
+
+  75% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}

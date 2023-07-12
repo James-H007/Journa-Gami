@@ -40,11 +40,11 @@ def my_entries():
 
     return {'entries': [entry.to_dict() for entry in user_entries]}, 200
 
-@entry_routes.route("/create", methods=["POST"])
+@entry_routes.route("/create/<int:journal_id>", methods=["POST"])
 @login_required
 def entry_create(journal_id):
     """
-    Create a entry based on user id
+    Create a entry based on journal id
     """
     print('Receive request to create post for journal id:', journal_id)
 
@@ -76,7 +76,7 @@ def entry_create(journal_id):
 @login_required
 def entry_edit(id):
     """
-    Edit an entry based on user id
+    Edit an entry based on entry id
     """
 
     userId = current_user.id
@@ -109,7 +109,7 @@ def entry_edit(id):
     db.session.commit()
     return {"entry": entry.to_dict()}, 200
 
-@entry_routes.route('/<int: id>/ delete', methods=['DELETE'])
+@entry_routes.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def entry_delete(id):
     """
@@ -212,11 +212,25 @@ def get_all_images():
 
     return {'images': [image.to_dict() for image in images]}, 200
 
-@entry_routes.route('/<int:id>/images')
+@entry_routes.route('/images/<int:id>')
 @login_required
 def get_image(id):
     """
-    Get images based on id
+    Get image based on id
+    """
+
+    userId = current_user.id
+    image = EntryImage.query.get(id)
+
+    if image is None:
+        return jsonify({"Error": "Image not found"}, 404)
+    return image.to_dict()
+
+@entry_routes.route('/<int:id>/images')
+@login_required
+def get_entry_images(id):
+    """
+    Get images based on Entry id
     """
 
     userId = current_user.id

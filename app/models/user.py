@@ -38,7 +38,6 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'journals': [journal.to_dict() for journal in self.journals],
-            'pet': self.pet.to_dict(),
-            'entries': [entry.to_dict() for entry in self.entry],
+            'entries': [entry.to_dict() for entry in self.entries],
             'tags': [tag.to_dict() for tag in self.tags]
         }
