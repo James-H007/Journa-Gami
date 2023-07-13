@@ -8,17 +8,21 @@ import tags from '../../assets/tags-solid.svg'
 import pet from '../../assets/crow-solid.svg'
 import logouticon from '../../assets/logout.svg'
 import { logout } from "../../store/session";
+import user from '../../assets/user-solid.svg'
 
 import './Navigation.css';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const avatar = "https://img.wattpad.com/286ea0e7dc93d535f9e04dae613223d3d4ddfac9/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f65454337674630684d594f5276773d3d2d3637353137303937352e313537356430373466313763313438623338393034323838373636362e6a7067?s=fit&w=720&h=720"
 	const dispatch = useDispatch()
+	const history = useHistory()
 
 	const handleLogout = (e) => {
 		e.preventDefault();
 		dispatch(logout());
+		history.push("/")
 	};
 
 	return (
@@ -26,7 +30,7 @@ function Navigation({ isLoaded }) {
 			{sessionUser && isLoaded && (
 				<ul className='navBar'>
 					<li>
-						<NavLink exact to="/home"><img src={avatar} alt="avatar" className='avatar-nav' /></NavLink>
+						<NavLink exact to="/home"><img src={user} alt="avatar" className='profile-button' /></NavLink>
 					</li>
 					<li>
 						<NavLink exact to="/journals"><img src={box} alt="boxes" className='profile-button' /></NavLink>
@@ -45,9 +49,9 @@ function Navigation({ isLoaded }) {
 			)}
 			{!sessionUser && isLoaded && (
 				<ul className='navBar'>
-					<li>
+					{/* <li>
 						<ProfileButton user={sessionUser} />
-					</li>
+					</li> */}
 				</ul>
 			)}
 		</>

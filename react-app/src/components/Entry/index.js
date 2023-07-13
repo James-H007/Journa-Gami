@@ -62,12 +62,9 @@ const EntryPage = () => {
                         <div className="entry-info-1">
                             <div className="entry-info-1-image-container">
                                 <img src={image1} alt="entry-image" className="entry-image" />
-                                <img src={image2} alt="entry-image" className="entry-image" />
+
                             </div>
-                            <div className="entry-info-1-image-container">
-                                <img src={image3} alt="entry-image" className="entry-image" />
-                                <img src={image4} alt="entry-image" className="entry-image" />
-                            </div>
+
                             <div className="entry-info-1-information">
                                 <div className="entry-info-1-weather">
                                     <div className="entry-info-1-header">Weather</div>
@@ -107,3 +104,9 @@ const EntryPage = () => {
 }
 
 export default EntryPage
+
+
+// <div className="entry-info-1-image-container">
+// <img src={image3} alt="entry-image" className="entry-image" />
+// <img src={image4} alt="entry-image" className="entry-image" />
+// </div>

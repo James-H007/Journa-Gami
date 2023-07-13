@@ -43,7 +43,7 @@ body {
 }
 
 .entire-app {
-    background-color: rgb(65, 65, 65);
+
     display: flex;
     flex: 1;
 }
@@ -61,5 +61,5 @@ a {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: rgb(65, 65, 65);
+
 }

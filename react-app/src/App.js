@@ -11,6 +11,7 @@ import JournalPage from "./components/Journals";
 import JournalInfo from "./components/JournalInfo";
 import EntryPage from "./components/Entry";
 import EntryCreate from "./components/EntryCreate";
+import EntryEdit from "./components/EntryEdit";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,14 +26,15 @@ function App() {
         <Navigation isLoaded={isLoaded} />
         {isLoaded && (
           <Switch>
-            <Route path="/home">
-              <LandingPage />
-            </Route>
+
             <Route path="/login" >
               <LoginFormPage />
             </Route>
             <Route path="/signup">
               <SignupFormPage />
+            </Route>
+            <Route path="/entries/:id/edit">
+              <EntryEdit />
             </Route>
             <Route path="/entries/:id">
               <EntryPage />
@@ -45,6 +47,9 @@ function App() {
             </Route>
             <Route path="/journals">
               <JournalPage />
+            </Route>
+            <Route path="/">
+              <LandingPage />
             </Route>
           </Switch>
         )}
