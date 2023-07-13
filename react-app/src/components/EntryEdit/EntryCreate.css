@@ -1,0 +1,239 @@
+.entry-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    font-family: 'Rubik';
+}
+
+.entry-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(248, 248, 248);
+    width: 800px;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.entry-form-image {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 125px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+
+.banner-form-image {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.entry-form-title {
+    background-color: black;
+    color: white;
+    width: 100%;
+    display: flex;
+    height: 60px;
+    font-weight: bold;
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+}
+
+.entry-form-content-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.entry-form-content {
+    background-color: rgb(247, 247, 247);
+    width: 90%;
+    height: 90%;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding: 10px;
+    overflow-y: auto;
+    border: 1px solid black;
+    font-family: 'Rubik';
+    font-size: 15px;
+}
+
+.entry-form-banner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: black;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    animation: short-float 2s infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-header {
+    color: white;
+    text-align: center;
+    margin-top: 0;
+}
+
+.entry-form-banner-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 40px;
+    font-family: 'Rubik';
+    background-color: rgb(233, 233, 233);
+    color: darkgray;
+    border-radius: 10px;
+    border: none;
+
+}
+
+.entry-form-weather {
+    position: absolute;
+    top: 300px;
+    right: 20px;
+    background-color: black;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    animation: short-float 2s infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.entry-form-mood {
+    position: absolute;
+    top: 600px;
+    right: 20px;
+    background-color: black;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    animation: short-float 2s infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-option {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 40px;
+}
+
+.weather-option input[type="radio"] {
+    display: none;
+}
+
+
+.weather-option.selected input[type="radio"] {
+    display: none;
+}
+
+.weather-option.selected {
+    border: 2px solid rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+.mood-option {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 40px;
+}
+
+.mood-option input[type="radio"] {
+    display: none;
+}
+
+
+.mood-option.selected input[type="radio"] {
+    display: none;
+}
+
+.mood-option.selected {
+    border: 2px solid rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.entry-submit-button {
+    background-color: black;
+    color: white;
+    width: 200px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    font-size: 35px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.entry-submit-button:hover {
+    animation: swish 2s infinite;
+    cursor: pointer;
+}
+
+@keyframes swish {
+    0% {
+        transform: translateX(0px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes short-float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        transform: translatey(-10px);
+    }
+
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+}

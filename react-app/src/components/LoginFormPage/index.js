@@ -3,10 +3,12 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const history = useHistory()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -19,37 +21,44 @@ function LoginFormPage() {
     if (data) {
       setErrors(data);
     }
+    history.push("/journals")
   };
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Email
+      <div className="login-page-wrapper">
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <h1 className="login-header">Log In</h1>
+          <ul>
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
+
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
             required
+            className="login-form-input"
           />
-        </label>
-        <label>
-          Password
+
+
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
             required
+            className="login-form-input"
           />
-        </label>
-        <button type="submit">Log In</button>
-      </form>
+
+          <button type="submit" className="signup-button">Log In</button>
+
+        </form>
+      </div>
     </>
   );
 }

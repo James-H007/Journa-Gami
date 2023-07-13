@@ -135,15 +135,16 @@
 .entry-create-button {
     position: fixed;
     border-radius: 10px;
-    width: 100px;
+    width: 60px;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     bottom: 20px;
-    right: 80px;
+    right: 90px;
     border-radius: 20px;
     font-family: 'Rubik';
+    background-color: black;
 }
 
 .entry-create-button:hover {
