@@ -24,13 +24,14 @@
     flex-direction: row;
     width: 80%;
     justify-content: flex-start;
-    gap: 60px;
+    align-items: center;
+    gap: 100px;
     flex-wrap: wrap;
-
     font-family: 'Rubik';
     margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 2%;
     animation: jumpIn 2s 1;
 }
 
@@ -43,7 +44,7 @@
     justify-content: flex-start;
     align-items: center;
     border-radius: 10px;
-
+    border: 1px solid black;
 }
 
 .journal-holder:hover {

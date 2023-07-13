@@ -91,17 +91,21 @@ export const getUserEntries = () => async (dispatch) => {
     if (response.ok) {
         const { entries } = await response.json()
         dispatch(getMyEntries(entries))
-        return posts
+        return entries
     }
 }
 
 //@entry_routes.route("/create", methods=["POST"])
 export const makeEntry = (journal_id, formData) => async (dispatch) => {
+    // console.log(formData, "FORM DATA")
     const response = await fetch(`/api/entries/create/${journal_id}`, {
         method: "POST",
-        body: formData
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
     })
-
+    // console.log(response, 'RESPONSE')
     if (response.ok) {
         const { entry } = await response.json()
         dispatch(createEntry(entry))

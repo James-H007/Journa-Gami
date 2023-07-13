@@ -86,8 +86,8 @@ const JournalInfo = () => {
                     </div>
                     <div className="entry-collection-container">
                         {currentJournal.entries.map((entry, i) => (
-                            <NavLink exact to={`/entries/${entry.id}`} className="entry-collection-preview">
-                                <div className="entry-collection-preview" key={i}>
+                            <NavLink exact to={`/entries/${entry.id}`} className="entry-collection-link" key={i}>
+                                <div className="entry-collection-preview" >
                                     <div className="entry-collection-entry-title">{entry.title}</div>
                                     <div className="entry-collection-entry-banner"><img src={entry.banner} alt="banner" className="entry-banner-img" /></div>
                                 </div>
