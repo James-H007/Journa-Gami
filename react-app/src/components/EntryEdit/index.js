@@ -60,6 +60,7 @@ const EntryEdit = () => {
                 <form className="entry-form-container" onSubmit={handleSubmit}>
                     <div className="entry-form-container">
                         <div className="entry-form-image"><img src={banner} alt="banner-form" className="banner-form-image" /></div>
+                        <div className="entry-form-errors"></div>
                         <div className="entry-form-title">
                             <input
                                 type="text"

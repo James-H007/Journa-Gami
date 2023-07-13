@@ -156,7 +156,7 @@ export const removeImage = (image_id) => async (dispatch) => {
         const data = await response.json()
 
         if (data.message === "Successfully deleted") {
-            dispatch(deleteImage(entry_id))
+            dispatch(deleteImage(image_id))
         }
     }
 }
@@ -184,7 +184,7 @@ export default function imagesReducer(state = initialState, action) {
             const index = state.allImages.findIndex(i => i.id === action.payload.id)
             let newImage = [...state.allImages]
             if (index !== -1) {
-                newEntry[index] = action.payload
+                newImage[index] = action.payload
             }
             return {
                 ...state,
