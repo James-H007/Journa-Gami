@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import journalReducer from './journals';
 import entriesReducer from './entries';
+import imagesReducer from './images';
 
 const rootReducer = combineReducers({
   session,
   journals: journalReducer,
-  entries: entriesReducer
+  entries: entriesReducer,
+  images: imagesReducer
 });
 
 

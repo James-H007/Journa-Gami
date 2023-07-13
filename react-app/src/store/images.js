@@ -51,7 +51,7 @@ const editImage = (image) => {
 const deleteImage = (imageId) => {
     return {
         type: DELETE_IMAGE,
-        payload: entryId
+        payload: imageId
     }
 }
 
@@ -110,7 +110,10 @@ export const getImageById = (id) => async (dispatch) => {
 export const createImageByEntry = (entry_id, formData) => async (dispatch) => {
     const response = await fetch(`/api/entries/${entry_id}/images`, {
         method: "POST",
-        body: formData
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
     })
 
     if (response.ok) {

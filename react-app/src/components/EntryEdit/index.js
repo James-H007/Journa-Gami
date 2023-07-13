@@ -5,7 +5,7 @@ import { getUserEntries, makeEntry } from "../../store/entries"
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min"
 
 
-const EntryCreate = () => {
+const EntryEdit = () => {
     const [title, setTitle] = useState("")
     const [banner, setBanner] = useState("https://htmlcolorcodes.com/assets/images/colors/dark-gray-color-solid-background-1920x1080.png")
     const [content, setContent] = useState("")
@@ -216,7 +216,7 @@ const EntryCreate = () => {
     )
 }
 
-export default EntryCreate
+export default EntryEdit
 
 
 {/* <form className="entry-form">

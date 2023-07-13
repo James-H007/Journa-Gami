@@ -8,6 +8,7 @@ import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import * as journalActions from "./store/journals"
 import * as entryActions from "./store/entries"
+import * as imageActions from "./store/images"
 import App from "./App";
 
 import "./index.css";
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV !== "production") {
 	window.sessionActions = sessionActions;
 	window.journalActions = journalActions;
 	window.entryActions = entryActions;
+	window.imageActions = imageActions;
 }
 
 // Wrap the application with the Modal provider and render the Modal component
