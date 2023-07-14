@@ -11,6 +11,7 @@ const EntryPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false)
     const [isLoaded2, setIsLoaded2] = useState(false)
+    const [isAuth, setIsAuth] = useState(false)
     const [image1, setImage1] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
     const [image2, setImage2] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
     const [image3, setImage3] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
@@ -19,13 +20,28 @@ const EntryPage = () => {
     const { id } = useParams()
     // console.log(id)
 
+    const sessionUser = useSelector(state => state.session.user)
     const entry = useSelector(state => state.entries.currentEntry)
-
+    const sun = "https://cdn.discordapp.com/attachments/1116804623211184308/1129346105608511508/SunEmoji.gif"
+    const cloud = "https://cdn.discordapp.com/attachments/1116804623211184308/1129350125647560805/cloud.gif"
+    const rain = "https://cdn.discordapp.com/attachments/1116804623211184308/1129359726552039444/Rain.gif"
+    const snow = "https://cdn.discordapp.com/attachments/1116804623211184308/1129361555369230336/snow.gif"
+    const unga = "https://cdn.discordapp.com/attachments/1116804623211184308/1129364927321210900/unga.gif"
+    const unga2 = "https://cdn.discordapp.com/attachments/1116804623211184308/1129368567192752138/ungatv.gif"
     console.log(entry)
     useEffect(async () => {
         await dispatch(getEntryById(id))
         await setIsLoaded(true)
     }, [])
+
+    useEffect(async () => {
+        if (entry && sessionUser) {
+            if (entry.ownerId === sessionUser.id) {
+                await setIsAuth(true)
+            }
+        }
+
+    }, [sessionUser, entry])
 
     useEffect(async () => {
         if (isLoaded && entry) {
@@ -50,24 +66,30 @@ const EntryPage = () => {
 
     return (
         <>
-            {isLoaded && !isLoaded2 && (
+            {isLoaded && !isLoaded2 && isAuth && (
                 <div className="loading">
                     <img src={penguin} alt="loading-gif" />
                     <p>Loading...</p>
                 </div>)}
+            {isLoaded && isLoaded2 && !isAuth && (
+                <div>
+                    YOU DON'T BELONG HERE!
+                </div>
+            )}
 
-            {isLoaded && isLoaded2 && (
+            {isLoaded && isLoaded2 && isAuth && (
                 <div className="entry-wrapper">
                     <div className="entry-container">
                         <div className="entry-info-1">
                             <div className="entry-info-1-image-container">
-                                <img src={image1} alt="entry-image" className="entry-image" />
+                                <img src={unga2} alt="entry-image" className="entry-image" />
 
                             </div>
 
                             <div className="entry-info-1-information">
                                 <div className="entry-info-1-weather">
                                     <div className="entry-info-1-header">Weather</div>
+                                    <img src={snow} alt="weather" className="weather" />
                                 </div>
                                 <div className="entry-info-1-mood">
                                     <div className="entry-info-1-header">Mood</div>

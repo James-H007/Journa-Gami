@@ -13,6 +13,7 @@ const JournalPage = () => {
 
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isAuth, setIsAuth] = useState(false);
     const sessionUser = useSelector(state => state.session.user)
     const myJournals = useSelector(state => state.journals.myJournals)
     const [showMenu, setShowMenu] = useState(false);
@@ -24,6 +25,8 @@ const JournalPage = () => {
         if (showMenu) return;
         setShowMenu(true);
     };
+
+
 
     useEffect(() => {
         if (!showMenu) return;

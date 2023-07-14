@@ -17,10 +17,12 @@ const JournalInfo = () => {
     const [title, setTitle] = useState("")
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
+    const [isAuth, setIsAuth] = useState(false)
     const { id } = useParams()
     const { closeModal } = useModal();
     const dispatch = useDispatch()
     const currentJournal = useSelector(state => state.journals.currentJournal)
+    const sessionUser = useSelector(state => state.session.user)
     const ulRef = useRef();
     const graphic = "https://cdna.artstation.com/p/assets/images/images/064/652/984/large/reza-afshar-0012.jpg?1688450401"
     console.log(currentJournal)
@@ -41,6 +43,15 @@ const JournalInfo = () => {
             setTitle(currentJournal.title)
         }
     }, [currentJournal])
+
+    useEffect(async () => {
+        if (sessionUser && currentJournal) {
+            if (sessionUser.id === currentJournal.ownerId) {
+                setIsAuth(true)
+            }
+        }
+
+    }, [sessionUser, currentJournal])
 
     // useEffect(async () => {
     //     await setIsLoaded(false)
@@ -74,7 +85,17 @@ const JournalInfo = () => {
 
     return (
         <>
-            {isLoaded && currentJournal && (
+            {!isLoaded && (
+                <div>
+                    Loading...
+                </div>
+            )}
+            {isLoaded && !isAuth && (
+                <div>
+                    You don't belong here.
+                </div>
+            )}
+            {isLoaded && currentJournal && isAuth && (
                 <div className="single-journal-wrapper">
                     <div className="single-journal-container">
                         <div className="single-journal-box-preview">
