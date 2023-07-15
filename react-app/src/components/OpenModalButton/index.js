@@ -1,5 +1,6 @@
 import React from 'react';
 import { useModal } from '../../context/Modal';
+import "./openModal.css"
 
 function OpenModalButton({
   modalComponent, // component to render inside the modal
@@ -16,7 +17,7 @@ function OpenModalButton({
   };
 
   return (
-    <button onClick={onClick}>{buttonText}</button>
+    <div onClick={onClick} className='open-modal-button-text'>{buttonText}</div>
   );
 }
 

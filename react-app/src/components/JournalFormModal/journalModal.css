@@ -28,7 +28,7 @@
 .journal-form-preview-box {
     display: flex;
     flex-direction: column;
-    width: 55%;
+    width: 300px;
     height: 80%;
     background-color: black;
     border-radius: 10px;

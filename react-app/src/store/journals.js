@@ -130,7 +130,7 @@ export const editAJournal = (id, journal) => async (dispatch) => {
 
 // @journal_routes.route('/<int:id>/delete', methods=['DELETE'])
 export const removeJournalById = (id) => async (dispatch) => {
-    const response = await fetch(`/api/journals/${id}`, {
+    const response = await fetch(`/api/journals/${id}/delete`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

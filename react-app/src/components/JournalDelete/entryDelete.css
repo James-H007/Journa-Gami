@@ -1,0 +1,54 @@
+.entry-delete-wrapper {
+    height: 300px;
+    width: 700px;
+    font-family: 'Rubik';
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 20px;
+}
+
+
+.entry-delete-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.entry-delete-yes {
+    background-color: rgb(185, 13, 13);
+    color: white;
+    width: 180px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.entry-delete-no {
+    background-color: rgb(13, 185, 36);
+    color: white;
+    width: 180px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.entry-delete-yes:hover {
+    cursor: pointer;
+    animation: tilt-shaking 3s infinite;
+}
+
+.entry-delete-no:hover {
+    cursor: pointer;
+}

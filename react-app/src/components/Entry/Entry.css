@@ -1,17 +1,19 @@
 .entry-wrapper {
     display: flex;
     /* background-color: rgb(90, 90, 90); */
-    width: 90%;
-    height: 90%;
+    width: 97vw;
+    height: 97vh;
     padding: 10px;
     margin-left: 7%;
-    margin-top: 2%;
+    margin-right: 10px;
+    margin-top: 2px;
     border-radius: 10px;
     font-family: 'Rubik';
     justify-content: center;
     border: 1px solid black;
     align-items: center;
     animation: fadeIn 3s 1;
+
 }
 
 
@@ -41,19 +43,20 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(247, 247, 247);
     align-items: center;
     justify-content: center;
     gap: 20px;
     border-radius: 10px;
-
+    border: 1px black dashed;
 }
 
 .entry-image {
     object-fit: cover;
-    width: 90%;
-    height: 90%;
+    width: 800px;
+    height: 500px;
     border-radius: 10px;
+
 }
 
 .entry-info-1-information {
@@ -77,16 +80,22 @@
     background-color: rgb(52, 115, 252);
     border: 1px solid black;
     border-radius: 10px;
+    align-items: center;
 }
 
 .entry-info-1-mood {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     background-color: rgb(231, 231, 231);
     border: 1px solid black;
     border-radius: 10px;
+}
+
+.entry-info-mood {
+    font-size: 140px;
 }
 
 .entry-info-1-tags-container {
@@ -110,6 +119,7 @@
     font-weight: bold;
     font-size: 20px;
     border-radius: 10px 10px 0px 0px;
+    width: 100%;
 }
 
 .tag-name {
@@ -159,8 +169,8 @@
 
 .entry-info-2-content {
     background-color: rgb(247, 247, 247);
-    width: 90%;
-    height: 90%;
+    width: 800px;
+    height: 1000px;
     margin-bottom: 10px;
     margin-top: 30px;
     border-radius: 10px;
@@ -176,9 +186,71 @@
 
 .entry-edit-button {
     position: fixed;
-    background-color: rgb(44, 83, 255);
+    background-color: rgb(0, 0, 0);
     border-radius: 100px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     bottom: 20px;
-    right: 20px;
+    right: 24px;
+    border: 2px solid white;
     font-family: 'Rubik';
+}
+
+
+
+.entry-edit-button:hover {
+    animation: spin 3s infinite;
+}
+
+.entry-trash-button {
+    position: fixed;
+    background-color: rgb(0, 0, 0);
+    border-radius: 100px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 20px;
+    right: 795px;
+    border: 2px solid white;
+    font-family: 'Rubik';
+}
+
+.entry-trash-button:hover {
+    animation: tilt-shaking 2s infinite;
+    cursor: pointer;
+}
+
+
+.weather {
+    object-fit: cover;
+    height: 150px;
+    width: 150px;
+    margin-top: 5px;
+}
+
+@keyframes shaking {
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(2px)
+    }
+
+    50% {
+        transform: translateX(-2px)
+    }
+
+    75% {
+        transform: translateX(2px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
 }

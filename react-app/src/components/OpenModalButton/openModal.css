@@ -1,0 +1,8 @@
+.open-modal-button-text {
+    text-decoration: underline;
+    color: white;
+}
+
+.open-modal-button-text:hover {
+    cursor: pointer;
+}

@@ -11,16 +11,22 @@ import gear from "../../assets/gear-solid.svg"
 import OpenModalButtonIcon from "../OpenModalButtonIcon"
 import pencil from "../../assets/pen-to-square-solid.svg"
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
+import loading from "../../assets/ungaloading.gif"
+import JournalDelete from "../JournalDelete"
+import trash from "../../assets/trash.svg"
+import backroom from "../../assets/backroom.gif"
 
 const JournalInfo = () => {
     const [cover, setCover] = useState("")
     const [title, setTitle] = useState("")
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
+    const [isAuth, setIsAuth] = useState(false)
     const { id } = useParams()
     const { closeModal } = useModal();
     const dispatch = useDispatch()
     const currentJournal = useSelector(state => state.journals.currentJournal)
+    const sessionUser = useSelector(state => state.session.user)
     const ulRef = useRef();
     const graphic = "https://cdna.artstation.com/p/assets/images/images/064/652/984/large/reza-afshar-0012.jpg?1688450401"
     console.log(currentJournal)
@@ -41,6 +47,15 @@ const JournalInfo = () => {
             setTitle(currentJournal.title)
         }
     }, [currentJournal])
+
+    useEffect(async () => {
+        if (sessionUser && currentJournal) {
+            if (sessionUser.id === currentJournal.ownerId) {
+                setIsAuth(true)
+            }
+        }
+
+    }, [sessionUser, currentJournal])
 
     // useEffect(async () => {
     //     await setIsLoaded(false)
@@ -74,7 +89,19 @@ const JournalInfo = () => {
 
     return (
         <>
-            {isLoaded && currentJournal && (
+            {!isLoaded && (
+                <div className="loading">
+                    <img src={loading} alt="loading-gif" />
+                    <p>Loading...</p>
+                </div>
+            )}
+            {isLoaded && !isAuth && (
+                <div className="no-auth">
+                    <img src={backroom} alt="no-auth" className="no-auth-img" />
+                    <div className="no-auth-text">You're either not allowed here or in nowhere.</div>
+                </div>
+            )}
+            {isLoaded && currentJournal && isAuth && (
                 <div className="single-journal-wrapper">
                     <div className="single-journal-container">
                         <div className="single-journal-box-preview">
@@ -104,6 +131,14 @@ const JournalInfo = () => {
                             className="journal-edit-button"
                         />
 
+                    </div>
+                    <div className="journal-delete-button">
+                        <OpenModalButtonIcon
+                            icon={trash}
+                            buttonText="Delete Journal"
+                            onItemClick={closeMenu}
+                            modalComponent={<JournalDelete id={currentJournal.id} />}
+                        />
                     </div>
                     <div className="entry-create-button">
                         <NavLink exact to={`/journals/${currentJournal.id}/entries/create`}>

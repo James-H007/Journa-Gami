@@ -3,6 +3,7 @@ import sketchbook from "../../assets/sketchbook.png"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import LoginFormPage from "../LoginFormPage"
+import loading from "../../assets/ungaloading.gif"
 
 const LandingPage = () => {
     // useEffect(() => {
@@ -16,6 +17,14 @@ const LandingPage = () => {
             {
                 !sessionUser && (
                     <LoginFormPage />
+                )
+            }
+            {
+                sessionUser && (
+                    <div className="loading">
+                        <img src={loading} alt="loading-gif" />
+                        <p>This page is still being worked on.</p>
+                    </div>
                 )
             }
         </div>

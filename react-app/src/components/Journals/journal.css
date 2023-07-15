@@ -1,14 +1,14 @@
 .loading {
     display: flex;
     margin: auto;
-    width: 300px;
+    width: 800px;
     height: 300px;
     object-fit: contain;
     flex-direction: column;
     text-align: center;
     font-family: 'Rubik';
     font-size: 30px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .journal-wrapper {

@@ -34,10 +34,12 @@ const JournalEditFormModal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // let form = { title, cover };
-        if (title.length === 0) {
+        if (title.length === 0 || title.length > 14) {
+            setErrors(["Title can only be between 0 and 14 characters"])
             return
         }
-        if (!cover) {
+        if (cover.length > 800 || cover.length === 0) {
+            setErrors(["Cover URL must be between 0 and 800 characters"])
             return
         }
 
@@ -72,6 +74,11 @@ const JournalEditFormModal = () => {
                     </div>
                     <div className="journal-form-info">
                         <h1>Edit a Journal</h1>
+                        <ul>
+                            {errors.map((error, idx) => (
+                                <div key={idx} className="error">{error}</div>
+                            ))}
+                        </ul>
                         <form className="journal-form-input" onSubmit={handleSubmit}>
                             <input
                                 type="text"
