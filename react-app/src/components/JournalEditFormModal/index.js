@@ -18,9 +18,12 @@ const JournalEditFormModal = () => {
     const history = useHistory()
     const graphic = "https://cdn.dribbble.com/users/763353/screenshots/5400172/media/4b0d5dc8f004d298781b7c9f31cc33df.png?compress=1&resize=800x600&vertical=center"
     const currentJournal = useSelector(state => state.journals.currentJournal)
+
     useEffect(() => {
-        dispatch(getJournalById(id))
-        setIsLoaded(true)
+        if (currentJournal) {
+            dispatch(getJournalById(currentJournal.id))
+            setIsLoaded(true)
+        }
     }, [])
 
     useEffect(() => {
