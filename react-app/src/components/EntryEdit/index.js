@@ -40,7 +40,7 @@ const EntryEdit = () => {
         if (isLoaded && currentEntry) {
             setBanner(currentEntry.banner)
             setTitle(currentEntry.title)
-            setContent(currentEntry.title)
+            setContent(currentEntry.content)
             setWeather(currentEntry.weather)
             setMood(currentEntry.mood)
         }
