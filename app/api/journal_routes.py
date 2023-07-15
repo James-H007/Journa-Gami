@@ -67,7 +67,7 @@ def journal_create():
 @login_required
 def journal_edit(id):
     """
-    Edit a journal on user id
+    Edit a journal on journal
     """
 
     userId = current_user.id

@@ -11,6 +11,10 @@ import gear from "../../assets/gear-solid.svg"
 import OpenModalButtonIcon from "../OpenModalButtonIcon"
 import pencil from "../../assets/pen-to-square-solid.svg"
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
+import loading from "../../assets/ungaloading.gif"
+import JournalDelete from "../JournalDelete"
+import trash from "../../assets/trash.svg"
+import backroom from "../../assets/backroom.gif"
 
 const JournalInfo = () => {
     const [cover, setCover] = useState("")
@@ -86,13 +90,15 @@ const JournalInfo = () => {
     return (
         <>
             {!isLoaded && (
-                <div>
-                    Loading...
+                <div className="loading">
+                    <img src={loading} alt="loading-gif" />
+                    <p>Loading...</p>
                 </div>
             )}
             {isLoaded && !isAuth && (
-                <div>
-                    You don't belong here.
+                <div className="no-auth">
+                    <img src={backroom} alt="no-auth" className="no-auth-img" />
+                    <div className="no-auth-text">You're either not allowed here or in nowhere.</div>
                 </div>
             )}
             {isLoaded && currentJournal && isAuth && (
@@ -125,6 +131,14 @@ const JournalInfo = () => {
                             className="journal-edit-button"
                         />
 
+                    </div>
+                    <div className="journal-delete-button">
+                        <OpenModalButtonIcon
+                            icon={trash}
+                            buttonText="Delete Journal"
+                            onItemClick={closeMenu}
+                            modalComponent={<JournalDelete id={currentJournal.id} />}
+                        />
                     </div>
                     <div className="entry-create-button">
                         <NavLink exact to={`/journals/${currentJournal.id}/entries/create`}>

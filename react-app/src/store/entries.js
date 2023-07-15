@@ -117,9 +117,12 @@ export const makeEntry = (journal_id, formData) => async (dispatch) => {
 export const changeEntry = (entry_id, formData) => async (dispatch) => {
     const response = await fetch(`/api/entries/${entry_id}/edit`, {
         method: "PUT",
-        body: formData
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
     })
-
+    console.log(formData)
     if (response.ok) {
         const { entry } = await response.json()
         dispatch(editEntry(entry))
@@ -130,15 +133,14 @@ export const changeEntry = (entry_id, formData) => async (dispatch) => {
 //@entry_routes.route('/<int: id>/ delete', methods=['DELETE'])
 export const removeEntry = (entry_id) => async (dispatch) => {
     const response = await fetch(`/api/entries/${entry_id}/delete`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
     })
 
     if (response.ok) {
-        const data = await response.json()
-
-        if (data.message === "Successfully deleted") {
-            dispatch(deleteEntry(entry_id))
-        }
+        dispatch(deleteEntry(entry_id))
     }
 }
 
@@ -169,13 +171,13 @@ export default function entriesReducer(state = initialState, action) {
             }
         case EDIT_ENTRIES:
             const index = state.allEntries.findIndex(i => i.id === action.payload.id)
-            let newEntry = [...state.allEntries]
+            let newEntries = [...state.allEntries]
             if (index !== -1) {
-                newEntry[index] = action.payload
+                newEntries[index] = action.payload
             }
             return {
                 ...state,
-                allEntries: newEntry
+                allEntries: newEntries
             }
         case DELETE_ENTRY:
             return {

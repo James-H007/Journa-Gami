@@ -25,21 +25,26 @@ function Navigation({ isLoaded }) {
 		history.push("/")
 	};
 
+	const handleAlert = (e) => {
+		e.preventDefault();
+		alert("Feature has yet to be added!")
+	}
+
 	return (
 		<>
 			{sessionUser && isLoaded && (
 				<ul className='navBar'>
 					<li>
-						<NavLink exact to="/home"><img src={user} alt="avatar" className='profile-button' /></NavLink>
+						<img src={user} alt="avatar" className='profile-button' onClick={handleAlert} />
 					</li>
 					<li>
 						<NavLink exact to="/journals"><img src={box} alt="boxes" className='profile-button' /></NavLink>
 					</li>
 					<li>
-						<img src={tags} alt="tags" className='profile-button' />
+						<img src={tags} alt="tags" className='profile-button' onClick={handleAlert} />
 					</li>
 					<li>
-						<img src={pet} alt="pet" className='profile-button' />
+						<img src={pet} alt="pet" className='profile-button' onClick={handleAlert} />
 					</li>
 					<li>
 						<img src={logouticon} onClick={handleLogout} alt="logout" className='profile-button' />

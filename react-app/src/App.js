@@ -12,6 +12,7 @@ import JournalInfo from "./components/JournalInfo";
 import EntryPage from "./components/Entry";
 import EntryCreate from "./components/EntryCreate";
 import EntryEdit from "./components/EntryEdit";
+import EntryDelete from "./components/EntryDelete";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +27,6 @@ function App() {
         <Navigation isLoaded={isLoaded} />
         {isLoaded && (
           <Switch>
-
             <Route path="/login" >
               <LoginFormPage />
             </Route>

@@ -1,3 +1,7 @@
+.error {
+    color: red;
+}
+
 .login-page-wrapper {
     display: flex;
     flex-direction: column;
@@ -38,6 +42,15 @@
     background-color: rgb(245, 245, 245);
     font-size: 25px;
     font-family: 'Rubik';
+}
+
+.demo-login {
+    color: white;
+    text-decoration: underline;
+}
+
+.demo-login:hover {
+    cursor: pointer;
 }
 
 @keyframes panning {

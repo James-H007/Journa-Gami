@@ -9,6 +9,9 @@ import loadingGif from "../../assets/giphy.gif"
 import OpenModalButtonIcon from "../OpenModalButtonIcon";
 import hammer from "../../assets/hammer-solid.svg"
 import plus from "../../assets/plus-solid.svg"
+import loading from "../../assets/ungaloading.gif"
+import backroom from "../../assets/backroom.gif"
+
 const JournalPage = () => {
 
     const dispatch = useDispatch();
@@ -20,6 +23,12 @@ const JournalPage = () => {
     const ulRef = useRef();
 
     // console.log("---------", myJournals)
+
+    useEffect(async () => {
+        if (sessionUser) {
+            setIsAuth(true)
+        }
+    }, [sessionUser])
 
     const openMenu = () => {
         if (showMenu) return;
@@ -45,16 +54,24 @@ const JournalPage = () => {
     const closeMenu = () => setShowMenu(false);
 
     useEffect(async () => {
-        await dispatch(getUserJournals())
-        await setIsLoaded(true)
-    }, [])
+        if (sessionUser) {
+            await dispatch(getUserJournals())
+            await setIsLoaded(true)
+        }
+    }, [sessionUser])
     return (
         <>
-            {!isLoaded && (
+            {!isLoaded && isAuth && (
                 <div className="loading">
-                    <img src={loadingGif} alt="loading-gif" />
+                    <img src={loading} alt="loading-gif" />
                     <p>Loading...</p>
                 </div>)}
+            {!isAuth && (
+                <div className="no-auth">
+                    <img src={backroom} alt="no-auth" className="no-auth-img" />
+                    <div className="no-auth-text">You're either not allowed here or in nowhere.</div>
+                </div>
+            )}
             {
                 isLoaded && (
                     <div className="journal-wrapper">
@@ -68,6 +85,12 @@ const JournalPage = () => {
                                 </NavLink>
                             ))
                             }
+                            {myJournals.length === 0 && (
+                                <div className="no-auth">
+                                    <img src="https://media.tenor.com/oU8nCyZnpvkAAAAM/shake-my-head-snoop-dogg.gif" alt="no-auth" className="no-auth-img" />
+                                    <div className="no-auth-text">You don't have any journals. Go make one.</div>
+                                </div>
+                            )}
                             <div className="journal-button">
                                 <OpenModalButtonIcon
                                     icon={plus}

@@ -9,7 +9,7 @@ import { createJournal, getUserJournals } from "../../store/journals";
 const JournalFormModal = () => {
     const dispatch = useDispatch();
     const [title, setTitle] = useState("");
-    const [cover, setCover] = useState("");
+    const [cover, setCover] = useState("https://htmlcolorcodes.com/assets/images/colors/steel-gray-color-solid-background-1920x1080.png");
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
     const graphic = "https://cdn.dribbble.com/users/763353/screenshots/5400172/media/4b0d5dc8f004d298781b7c9f31cc33df.png?compress=1&resize=800x600&vertical=center"
@@ -17,6 +17,14 @@ const JournalFormModal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let form = { title, cover };
+        if (title.length === 0 || title.length > 14) {
+            setErrors(["Title can only be between 0 and 14 characters"])
+            return
+        }
+        if (cover.length > 800 || cover.length === 0) {
+            setErrors(["Cover URL must be between 0 and 800 characters"])
+            return
+        }
         if (title.length > 0) {
             form.title = title
         }
@@ -45,6 +53,11 @@ const JournalFormModal = () => {
                     </div>
                     <div className="journal-form-info">
                         <h1>Create a Journal</h1>
+                        <ul>
+                            {errors.map((error, idx) => (
+                                <div key={idx} className="error">{error}</div>
+                            ))}
+                        </ul>
                         <form className="journal-form-input" onSubmit={handleSubmit}>
                             <input
                                 type="text"

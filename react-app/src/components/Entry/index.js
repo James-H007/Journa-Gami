@@ -6,12 +6,22 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 import penguin from "../../assets/giphy.gif"
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
 import pencil from "../../assets/pencil-solid.svg"
+import loading from "../../assets/ungaloading.gif"
+import cafe from "../../assets/ungacafe.gif"
+import trash from "../../assets/trash.svg"
+import OpenModalButtonIcon from "../OpenModalButtonIcon"
+import EntryDelete from "../EntryDelete"
+import backroom from "../../assets/backroom.gif"
+import unga from "../../assets/unga.png"
 
 const EntryPage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false)
     const [isLoaded2, setIsLoaded2] = useState(false)
     const [isAuth, setIsAuth] = useState(false)
+    const [showMenu, setShowMenu] = useState(false);
+    const [weather, setWeather] = useState("none")
+    const [mood, setMood] = useState("😐")
     const [image1, setImage1] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
     const [image2, setImage2] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
     const [image3, setImage3] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
@@ -26,9 +36,8 @@ const EntryPage = () => {
     const cloud = "https://cdn.discordapp.com/attachments/1116804623211184308/1129350125647560805/cloud.gif"
     const rain = "https://cdn.discordapp.com/attachments/1116804623211184308/1129359726552039444/Rain.gif"
     const snow = "https://cdn.discordapp.com/attachments/1116804623211184308/1129361555369230336/snow.gif"
-    const unga = "https://cdn.discordapp.com/attachments/1116804623211184308/1129364927321210900/unga.gif"
-    const unga2 = "https://cdn.discordapp.com/attachments/1116804623211184308/1129368567192752138/ungatv.gif"
-    console.log(entry)
+
+    // console.log(entry)
     useEffect(async () => {
         await dispatch(getEntryById(id))
         await setIsLoaded(true)
@@ -45,35 +54,55 @@ const EntryPage = () => {
 
     useEffect(async () => {
         if (isLoaded && entry) {
-            const images = entry.images
-            images.map((image, i) => {
-                if (image.imageUrl && i === 0) {
-                    setImage1(image.imageUrl)
-                }
-                else if (image.imageUrl && i === 1) {
-                    setImage2(image.imageUrl)
-                }
-                else if (image.imageUrl && i === 2) {
-                    setImage3(image.imageUrl)
-                }
-                else if (image.imageUrl && i === 3) {
-                    setImage4(image.imageUrl)
-                }
-            })
+            if (entry.weather === "sunny") {
+                setWeather(sun)
+            }
+            else if (entry.weather === "cloudy") {
+                setWeather(cloud)
+            }
+            else if (entry.weather === "rain") {
+                setWeather(rain)
+            }
+            else if (entry.weather === "snow") {
+                setWeather(snow)
+            }
+            else if (entry.weather === "none") {
+                setWeather(unga)
+            }
+            if (entry.mood === 'netural') {
+                setMood("😐")
+            }
+            if (entry.mood === "happy") {
+                setMood("😀")
+            }
+            if (entry.mood === "sad") {
+                setMood("😟")
+            }
+            if (entry.mood === "angry") {
+                setMood("😠")
+            }
+            if (entry.mood === "scared") {
+                setMood("😨")
+            }
         }
         setIsLoaded2(true)
     }, [isLoaded, entry])
+
+
+
+    const closeMenu = () => setShowMenu(false);
 
     return (
         <>
             {isLoaded && !isLoaded2 && isAuth && (
                 <div className="loading">
-                    <img src={penguin} alt="loading-gif" />
+                    <img src={loading} alt="loading-gif" />
                     <p>Loading...</p>
                 </div>)}
             {isLoaded && isLoaded2 && !isAuth && (
-                <div>
-                    YOU DON'T BELONG HERE!
+                <div className="no-auth">
+                    <img src={backroom} alt="no-auth" className="no-auth-img" />
+                    <div className="no-auth-text">You're either not allowed here or in nowhere.</div>
                 </div>
             )}
 
@@ -82,17 +111,17 @@ const EntryPage = () => {
                     <div className="entry-container">
                         <div className="entry-info-1">
                             <div className="entry-info-1-image-container">
-                                <img src={unga2} alt="entry-image" className="entry-image" />
-
+                                <img src={cafe} alt="entry-image" className="entry-image" />
                             </div>
 
                             <div className="entry-info-1-information">
                                 <div className="entry-info-1-weather">
                                     <div className="entry-info-1-header">Weather</div>
-                                    <img src={snow} alt="weather" className="weather" />
+                                    <img src={weather} alt="weather" className="weather" />
                                 </div>
                                 <div className="entry-info-1-mood">
                                     <div className="entry-info-1-header">Mood</div>
+                                    <div className="entry-info-mood">{mood}</div>
                                 </div>
                                 <div className="entry-info-1-tags-container">
                                     <div className="entry-info-1-header">Tags</div>
@@ -117,6 +146,15 @@ const EntryPage = () => {
                             <img src={pencil} alt="edit-entry" className="pencil" />
                         </NavLink>
                     </div>
+                    <div className="entry-trash-button">
+                        <OpenModalButtonIcon
+                            icon={trash}
+                            buttonText="Delete Trash"
+                            onItemClick={closeMenu}
+                            modalComponent={<EntryDelete id={entry.id} journalId={entry.journalId} />}
+                            className="pencil"
+                        />
+                    </div>
                 </div>
             )}
         </>
@@ -132,3 +170,19 @@ export default EntryPage
 // <img src={image3} alt="entry-image" className="entry-image" />
 // <img src={image4} alt="entry-image" className="entry-image" />
 // </div>
+
+// const images = entry.images
+// images.map((image, i) => {
+//     if (image.imageUrl && i === 0) {
+//         setImage1(image.imageUrl)
+//     }
+//     else if (image.imageUrl && i === 1) {
+//         setImage2(image.imageUrl)
+//     }
+//     else if (image.imageUrl && i === 2) {
+//         setImage3(image.imageUrl)
+//     }
+//     else if (image.imageUrl && i === 3) {
+//         setImage4(image.imageUrl)
+//     }
+// })

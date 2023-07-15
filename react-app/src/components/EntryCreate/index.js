@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./EntryCreate.css"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getUserEntries, makeEntry } from "../../store/entries"
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min"
-
+import loading from "../../assets/ungaloading.gif"
+import backroom from "../../assets/backroom.gif"
 
 const EntryCreate = () => {
     const [title, setTitle] = useState("")
@@ -13,13 +14,34 @@ const EntryCreate = () => {
     const [mood, setMood] = useState("none")
     const [favorite, setFavorite] = useState(false)
     const [location, setLocation] = useState("CA")
+    const [errors, setErrors] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false)
     const { id } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
-    console.log(id, "HERE IS THE ID")
+    const sessionUser = useSelector(state => state.session.user)
+    // console.log(id, "HERE IS THE ID")
+    useEffect(async () => {
+        if (sessionUser) {
+            setIsLoaded(true)
+        }
+    }, [sessionUser])
     const handleSubmit = async (e) => {
         e.preventDefault();
         let form = { title, banner, content, weather, mood, location, favorite };
+        if (title.length === 0 || title.length > 14) {
+            setErrors(["Title can only be between 0 and 14 characters."])
+            return
+        }
+        if (content.length === 0 || content.length > 14000) {
+            setErrors(["Entry contents must be between 0 and 14000 characters."])
+            return
+        }
+        if (banner.length === 0 || banner.length > 2000) {
+            setErrors(["Banner image URL must be between 0 and 2000 characters."])
+            return
+        }
+
         if (title.length > 0) {
             form.title = title
         }
@@ -49,169 +71,186 @@ const EntryCreate = () => {
         console.log(data)
         await dispatch(getUserEntries())
         if (data) {
-            await history.push(`/entries/${data.id}/image`)
+            await history.push(`/entries/${data.id}`)
         }
         // history.push(`/journals/${id}`)
     }
 
     return (
         <>
-            <div className="entry-form-wrapper">
-                <form className="entry-form-container" onSubmit={handleSubmit}>
-                    <div className="entry-form-container">
-                        <div className="entry-form-image"><img src={banner} alt="banner-form" className="banner-form-image" /></div>
-                        <div className="entry-form-title">
+            {!isLoaded && (
+                <div>
+                    <div className="no-auth">
+                        <img src={backroom} alt="no-auth" className="no-auth-img" />
+                        <div className="no-auth-text">You're either not allowed here or in nowhere.</div>
+                    </div>
+                </div>
+            )}
+            {isLoaded && (
+                <div className="entry-form-wrapper">
+                    <form className="entry-form-container" onSubmit={handleSubmit}>
+                        <div className="entry-form-container">
+
+                            <div className="entry-form-image"><img src={banner} alt="banner-form" className="banner-form-image" /></div>
+
+                            <div className="entry-form-title">
+                                <input
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    required
+                                    placeholder="Input your title..."
+                                    className="entry-form-title"
+                                />
+                            </div>
+                            <ul>
+                                {errors.map((error, idx) => (
+                                    <div key={idx} className="error">{error}</div>
+                                ))}
+                            </ul>
+                            <div className="entry-form-content-holder" >
+                                <textarea
+                                    placeholder="Write your entry..."
+                                    required
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                    className="entry-form-content"
+                                    rows={33}
+                                    cols={100}
+                                />
+                            </div>
+                        </div>
+                        <div className="entry-form-banner">
+                            <h2 className="banner-header">Add a Banner ! 🎨</h2>
                             <input
                                 type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                required
-                                placeholder="Input your title..."
-                                className="entry-form-title"
+                                value={banner}
+                                onChange={(e) => setBanner(e.target.value)}
+                                placeholder="Banner Url"
+                                className="entry-form-banner-input"
                             />
                         </div>
-                        <div className="entry-form-content-holder" >
-                            <textarea
-                                placeholder="Write your entry..."
-                                required
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                className="entry-form-content"
-                                rows={33}
-                                cols={100}
-                            />
+                        <div className="entry-form-weather">
+                            <h2 className="banner-header">Weather</h2>
+                            <div className="entry-form-weather-select">
+                                <label className={`weather-option ${weather === 'sunny' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="weather"
+                                        id="sunny-radio"
+                                        value="sunny"
+                                        onChange={(e) => setWeather(e.target.value)}
+                                        checked={weather === 'sunny'}
+                                    />
+                                    ☀️
+                                </label>
+
+                                <label className={`weather-option ${weather === 'cloudy' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="weather"
+                                        id="cloudy-radio"
+                                        value="cloudy"
+                                        onChange={(e) => setWeather(e.target.value)}
+                                        checked={weather === 'cloudy'}
+                                    />
+                                    ☁️
+                                </label>
+
+                                <label className={`weather-option ${weather === 'rain' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="weather"
+                                        id="rain-radio"
+                                        value="rain"
+                                        onChange={(e) => setWeather(e.target.value)}
+                                        checked={weather === 'rain'}
+                                    />
+                                    🌧️
+                                </label>
+
+                                <label className={`weather-option ${weather === 'snow' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="weather"
+                                        id="snow-radio"
+                                        value="snow"
+                                        onChange={(e) => setWeather(e.target.value)}
+                                        checked={weather === 'snow'}
+                                    />
+                                    ❄️
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div className="entry-form-banner">
-                        <h2 className="banner-header">Add a Banner ! 🎨</h2>
-                        <input
-                            type="text"
-                            value={banner}
-                            onChange={(e) => setBanner(e.target.value)}
-                            placeholder="Banner Url"
-                            className="entry-form-banner-input"
-                        />
-                    </div>
-                    <div className="entry-form-weather">
-                        <h2 className="banner-header">Weather</h2>
-                        <div className="entry-form-weather-select">
-                            <label className={`weather-option ${weather === 'sunny' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="weather"
-                                    id="sunny-radio"
-                                    value="sunny"
-                                    onChange={(e) => setWeather(e.target.value)}
-                                    checked={weather === 'sunny'}
-                                />
-                                ☀️
-                            </label>
+                        <div className="entry-form-mood">
+                            <h2 className="banner-header">Mood</h2>
+                            <div className="entry-form-mood-select">
+                                <label className={`mood-option ${mood === 'neutral' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="mood"
+                                        id="neutral-radio"
+                                        value="neutral"
+                                        onChange={(e) => setMood(e.target.value)}
+                                        checked={mood === 'neutral'}
+                                    />
+                                    😐
+                                </label>
 
-                            <label className={`weather-option ${weather === 'cloudy' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="weather"
-                                    id="cloudy-radio"
-                                    value="cloudy"
-                                    onChange={(e) => setWeather(e.target.value)}
-                                    checked={weather === 'cloudy'}
-                                />
-                                ☁️
-                            </label>
+                                <label className={`mood-option ${mood === 'happy' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="mood"
+                                        id="happy-radio"
+                                        value="happy"
+                                        onChange={(e) => setMood(e.target.value)}
+                                        checked={mood === 'happy'}
+                                    />
+                                    😀
+                                </label>
 
-                            <label className={`weather-option ${weather === 'rain' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="weather"
-                                    id="rain-radio"
-                                    value="rain"
-                                    onChange={(e) => setWeather(e.target.value)}
-                                    checked={weather === 'rain'}
-                                />
-                                🌧️
-                            </label>
+                                <label className={`mood-option ${mood === 'sad' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="mood"
+                                        id="sad-radio"
+                                        value="sad"
+                                        onChange={(e) => setMood(e.target.value)}
+                                        checked={mood === 'sad'}
+                                    />
+                                    😟
+                                </label>
 
-                            <label className={`weather-option ${weather === 'snow' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="weather"
-                                    id="snow-radio"
-                                    value="snow"
-                                    onChange={(e) => setWeather(e.target.value)}
-                                    checked={weather === 'snow'}
-                                />
-                                ❄️
-                            </label>
+                                <label className={`mood-option ${mood === 'angry' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="mood"
+                                        id="angry-radio"
+                                        value="angry"
+                                        onChange={(e) => setMood(e.target.value)}
+                                        checked={mood === 'angry'}
+                                    />
+                                    😠
+                                </label>
+                                <label className={`mood-option ${mood === 'scared' ? 'selected' : ''}`}>
+                                    <input
+                                        type="radio"
+                                        name="mood"
+                                        id="scared-radio"
+                                        value="scared"
+                                        onChange={(e) => setMood(e.target.value)}
+                                        checked={mood === 'scared'}
+                                    />
+                                    😨
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div className="entry-form-mood">
-                        <h2 className="banner-header">Mood</h2>
-                        <div className="entry-form-mood-select">
-                            <label className={`mood-option ${mood === 'neutral' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="mood"
-                                    id="neutral-radio"
-                                    value="neutral"
-                                    onChange={(e) => setMood(e.target.value)}
-                                    checked={mood === 'neutral'}
-                                />
-                                😐
-                            </label>
-
-                            <label className={`mood-option ${mood === 'happy' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="mood"
-                                    id="happy-radio"
-                                    value="happy"
-                                    onChange={(e) => setMood(e.target.value)}
-                                    checked={mood === 'happy'}
-                                />
-                                😀
-                            </label>
-
-                            <label className={`mood-option ${mood === 'sad' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="mood"
-                                    id="sad-radio"
-                                    value="sad"
-                                    onChange={(e) => setMood(e.target.value)}
-                                    checked={mood === 'sad'}
-                                />
-                                😟
-                            </label>
-
-                            <label className={`mood-option ${mood === 'angry' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="mood"
-                                    id="angry-radio"
-                                    value="angry"
-                                    onChange={(e) => setMood(e.target.value)}
-                                    checked={mood === 'angry'}
-                                />
-                                😠
-                            </label>
-                            <label className={`mood-option ${mood === 'scared' ? 'selected' : ''}`}>
-                                <input
-                                    type="radio"
-                                    name="mood"
-                                    id="scared-radio"
-                                    value="scared"
-                                    onChange={(e) => setMood(e.target.value)}
-                                    checked={mood === 'scared'}
-                                />
-                                😨
-                            </label>
+                        <div onClick={handleSubmit} className="entry-submit-button">
+                            Create ➡️
                         </div>
-                    </div>
-                    <div onClick={handleSubmit} className="entry-submit-button">
-                        Create ➡️
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            )}
         </>
     )
 }
