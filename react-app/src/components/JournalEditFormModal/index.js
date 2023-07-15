@@ -64,43 +64,45 @@ const JournalEditFormModal = () => {
     };
     return (
         <>
-            <div className="journal-form-wrapper">
-                <div className="journal-form-container">
-                    <div className="journal-form-preview">
-                        <div className="journal-form-preview-box">
-                            <div className="journal-form-preview-image"><img src={cover} alt="cover-form" className="journal-form-cover-preview-image" /></div>
-                            <div className="journal-form-preview-title">{title}</div>
+            {isLoaded && (
+                <div className="journal-form-wrapper">
+                    <div className="journal-form-container">
+                        <div className="journal-form-preview">
+                            <div className="journal-form-preview-box">
+                                <div className="journal-form-preview-image"><img src={cover} alt="cover-form" className="journal-form-cover-preview-image" /></div>
+                                <div className="journal-form-preview-title">{title}</div>
+                            </div>
+                        </div>
+                        <div className="journal-form-info">
+                            <h1>Edit a Journal</h1>
+                            <ul>
+                                {errors.map((error, idx) => (
+                                    <div key={idx} className="error">{error}</div>
+                                ))}
+                            </ul>
+                            <form className="journal-form-input" onSubmit={handleSubmit}>
+                                <input
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    required
+                                    placeholder="Title"
+                                    className="journal-input"
+                                />
+                                <input
+                                    type="text"
+                                    value={cover}
+                                    onChange={(e) => setCover(e.target.value)}
+                                    required
+                                    placeholder="Cover"
+                                    className="journal-input"
+                                />
+                                <button type="submit" className="signup-button">Edit</button>
+                            </form>
                         </div>
                     </div>
-                    <div className="journal-form-info">
-                        <h1>Edit a Journal</h1>
-                        <ul>
-                            {errors.map((error, idx) => (
-                                <div key={idx} className="error">{error}</div>
-                            ))}
-                        </ul>
-                        <form className="journal-form-input" onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                required
-                                placeholder="Title"
-                                className="journal-input"
-                            />
-                            <input
-                                type="text"
-                                value={cover}
-                                onChange={(e) => setCover(e.target.value)}
-                                required
-                                placeholder="Cover"
-                                className="journal-input"
-                            />
-                            <button type="submit" className="signup-button">Edit</button>
-                        </form>
-                    </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }
