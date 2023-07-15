@@ -23,7 +23,7 @@ const JournalEditFormModal = () => {
         await setIsLoaded(true)
     }, [])
 
-    useEffect(() => {
+    useEffect(async () => {
         if (isLoaded && currentJournal) {
             setTitle(currentJournal.title)
             setCover(currentJournal.cover)
