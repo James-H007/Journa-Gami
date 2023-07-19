@@ -13,6 +13,7 @@ import OpenModalButtonIcon from "../OpenModalButtonIcon"
 import EntryDelete from "../EntryDelete"
 import backroom from "../../assets/backroom.gif"
 import unga from "../../assets/unga.png"
+import ReactMarkdown from 'react-markdown'
 
 const EntryPage = () => {
 
@@ -137,7 +138,10 @@ const EntryPage = () => {
                         <div className="entry-info-2">
                             <div className="entry-info-2-banner"><img src={entry.banner} alt="banner" className="entry-banner" /></div>
                             <div className="entry-info-2-title">{entry.title}</div>
-                            <div className="entry-info-2-content">{entry.content}</div>
+                            <div className="entry-info-2-content">
+                                <ReactMarkdown >{entry.content}</ReactMarkdown>
+                            </div>
+
                             <div className="entry-info-2-date">Updated at: {entry.updatedAt}</div>
                         </div>
                     </div>
