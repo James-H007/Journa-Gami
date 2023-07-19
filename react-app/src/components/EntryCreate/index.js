@@ -130,15 +130,13 @@ const EntryCreate = () => {
                                         "header",
                                         "bold",
                                         "italic",
-                                        "underline",
                                         "strike",
                                         "blockquote",
                                         "list",
                                         "bullet",
                                         "indent",
-                                        "link",
-
                                     ]}
+                                    required
                                     className="entry-form-content"
                                 />
                             </div>

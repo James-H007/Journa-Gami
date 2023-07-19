@@ -14,6 +14,7 @@ import EntryDelete from "../EntryDelete"
 import backroom from "../../assets/backroom.gif"
 import unga from "../../assets/unga.png"
 import ReactMarkdown from 'react-markdown'
+import htmlToMd from "html-to-md"
 
 const EntryPage = () => {
 
@@ -23,10 +24,7 @@ const EntryPage = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [weather, setWeather] = useState("none")
     const [mood, setMood] = useState("😐")
-    const [image1, setImage1] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
-    const [image2, setImage2] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
-    const [image3, setImage3] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
-    const [image4, setImage4] = useState("https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg")
+    const [content, setContent] = useState("")
     const dispatch = useDispatch()
     const { id } = useParams()
     // console.log(id)
@@ -37,6 +35,7 @@ const EntryPage = () => {
     const cloud = "https://cdn.discordapp.com/attachments/1116804623211184308/1129350125647560805/cloud.gif"
     const rain = "https://cdn.discordapp.com/attachments/1116804623211184308/1129359726552039444/Rain.gif"
     const snow = "https://cdn.discordapp.com/attachments/1116804623211184308/1129361555369230336/snow.gif"
+
 
     // console.log(entry)
     useEffect(async () => {
@@ -84,6 +83,11 @@ const EntryPage = () => {
             }
             if (entry.mood === "scared") {
                 setMood("😨")
+            }
+            if (entry.content) {
+                const mdContent = htmlToMd(entry.content)
+                setContent(mdContent)
+
             }
         }
         setIsLoaded2(true)
@@ -139,9 +143,8 @@ const EntryPage = () => {
                             <div className="entry-info-2-banner"><img src={entry.banner} alt="banner" className="entry-banner" /></div>
                             <div className="entry-info-2-title">{entry.title}</div>
                             <div className="entry-info-2-content">
-                                <ReactMarkdown >{entry.content}</ReactMarkdown>
+                                <ReactMarkdown>{content}</ReactMarkdown>
                             </div>
-
                             <div className="entry-info-2-date">Updated at: {entry.updatedAt}</div>
                         </div>
                     </div>
