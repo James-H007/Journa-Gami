@@ -5,6 +5,8 @@ import { getUserEntries, makeEntry } from "../../store/entries"
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min"
 import loading from "../../assets/ungaloading.gif"
 import backroom from "../../assets/backroom.gif"
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
 
 const EntryCreate = () => {
     const [title, setTitle] = useState("")
@@ -109,7 +111,7 @@ const EntryCreate = () => {
                                 ))}
                             </ul>
                             <div className="entry-form-content-holder" >
-                                <textarea
+                                {/* <textarea
                                     placeholder="Write your entry..."
                                     required
                                     value={content}
@@ -117,6 +119,25 @@ const EntryCreate = () => {
                                     className="entry-form-content"
                                     rows={33}
                                     cols={100}
+                                /> */}
+                                <ReactQuill
+                                    value={content}
+                                    onChange={setContent}
+                                    placeholder="Write your entry..."
+                                    modules={{ toolbar: true }}
+                                    theme="snow"
+                                    formats={[
+                                        "header",
+                                        "bold",
+                                        "italic",
+                                        "strike",
+                                        "blockquote",
+                                        "list",
+                                        "bullet",
+                                        "indent",
+                                    ]}
+                                    required
+                                    className="entry-form-content"
                                 />
                             </div>
                         </div>
