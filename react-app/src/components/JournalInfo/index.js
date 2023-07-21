@@ -15,7 +15,7 @@ import loading from "../../assets/ungaloading.gif"
 import JournalDelete from "../JournalDelete"
 import trash from "../../assets/trash.svg"
 import backroom from "../../assets/backroom.gif"
-import ReactQuill from "react-quill";
+
 
 const JournalInfo = () => {
     const [cover, setCover] = useState("")

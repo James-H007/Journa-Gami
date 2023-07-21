@@ -44,7 +44,7 @@ function Navigation({ isLoaded }) {
 						<img src={tags} alt="tags" className='profile-button' onClick={handleAlert} />
 					</li>
 					<li>
-						<img src={pet} alt="pet" className='profile-button' onClick={handleAlert} />
+						<NavLink exact to="/pet"><img src={pet} alt="pet" className='profile-button' /> </NavLink>
 					</li>
 					<li>
 						<img src={logouticon} onClick={handleLogout} alt="logout" className='profile-button' />
