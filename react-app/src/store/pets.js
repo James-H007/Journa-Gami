@@ -69,7 +69,9 @@ export const getUserPet = () => async (dispatch) => {
             "Content-Type": "application/json"
         }
     })
+
     if (response.ok) {
+        console.log(response)
         const { pet } = await response.json()
         dispatch(getMyPet(pet))
         return pet
@@ -96,5 +98,94 @@ export const getPetById = (id) => async (dispatch) => {
 }
 
 //@pet_routes.route('/create', methods = ["POST"])
+export const makePet = (formData) => async (dispatch) => {
+    const response = await fetch(`/api/entries/create/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
+
+    if (response.ok) {
+        const { pet } = await response.json()
+        dispatch(createPet(pet))
+        return pet
+    }
+}
+
 //@pet_routes.route('/<int:id>/edit', methods=["PUT"])
+export const changePet = (pet_id, formData) => async (dispatch) => {
+    const response = await fetch(`/api/pets/${pet_id}/edit`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
+    if (response.ok) {
+        const { pet } = await response.json()
+        dispatch(editPet(pet))
+        return pet
+    }
+}
+
 //@pet_routes.route('/<int:id>/delete', methods = ['DELETE'])
+export const removePet = (pet_id) => async (dispatch) => {
+    const response = await fetch(`/api/pets/${pet_id}/delete`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if (response.ok) {
+        dispatch(deletePet(pet_id))
+    }
+}
+
+const initialState = { allPets: [], currentPet: {}, myPet: {} }
+
+export default function petsReducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_ALL_PETS:
+            return {
+                ...state,
+                allPets: action.payload
+            }
+        case GET_CURRENT_PET:
+            return {
+                ...state,
+                myPet: action.payload
+            }
+        case GET_PET_ID:
+            return {
+                ...state,
+                currentPet: action.payload
+            }
+        case CREATE_PET:
+            return {
+                ...state,
+                allPets: [...state.allPets, action.payload],
+                currentPet: action.payload,
+                myPet: action.payload
+            }
+        case EDIT_PET:
+            const index = state.allPets.findIndex(i => i.id === action.payload.id)
+            let newPets = [...state.allPets]
+            if (index !== -1) {
+                newPets[index] = action.payload
+            }
+            return {
+                ...state,
+                allPets: newPets
+            }
+        case DELETE_PET:
+            return {
+                ...state,
+                allPets: state.allPets.filter(i => i.id !== action.payload)
+            }
+        default:
+            return state;
+    }
+}
