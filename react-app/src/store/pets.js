@@ -1,4 +1,4 @@
-const GET_CURRENT_PET = "pets/GET_CURRENT_PET";
+const GET_MY_PET = "pets/GET_MY_PET";
 const GET_ALL_PETS = "pets/GET_ALL_PETS";
 const GET_PET_ID = "pets/GET_PET_ID"
 const CREATE_PET = "pets/CREATE_PET"
@@ -14,7 +14,7 @@ const getPets = (pets) => {
 
 const getMyPet = (pet) => {
     return {
-        type: GET_CURRENT_PET,
+        type: GET_MY_PET,
         payload: pet
     }
 }
@@ -73,6 +73,7 @@ export const getUserPet = () => async (dispatch) => {
     if (response.ok) {
         console.log(response)
         const { pet } = await response.json()
+        console.log(pet)
         dispatch(getMyPet(pet))
         return pet
     }
@@ -99,7 +100,7 @@ export const getPetById = (id) => async (dispatch) => {
 
 //@pet_routes.route('/create', methods = ["POST"])
 export const makePet = (formData) => async (dispatch) => {
-    const response = await fetch(`/api/entries/create/`, {
+    const response = await fetch(`/api/pets/create`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -108,6 +109,7 @@ export const makePet = (formData) => async (dispatch) => {
     })
 
     if (response.ok) {
+        console.log(response)
         const { pet } = await response.json()
         dispatch(createPet(pet))
         return pet
@@ -153,7 +155,7 @@ export default function petsReducer(state = initialState, action) {
                 ...state,
                 allPets: action.payload
             }
-        case GET_CURRENT_PET:
+        case GET_MY_PET:
             return {
                 ...state,
                 myPet: action.payload

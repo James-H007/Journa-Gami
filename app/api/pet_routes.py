@@ -38,7 +38,7 @@ def my_pet():
     """
 
     userId = current_user.id
-    user_pet = Pet.query.filter_by(owner_id=userId)
+    user_pet = Pet.query.filter_by(owner_id=userId).first()
 
     return {'pet': user_pet.to_dict()}, 200
 

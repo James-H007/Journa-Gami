@@ -15,7 +15,7 @@ const VirtualPetInfo = ({ pet }) => {
                     </div>
                     <div className="pet-info-info">
                         <h1>{pet.name}</h1>
-                        <p>❤️ {pet.happiness}/100</p>
+                        <p>❤️ {pet.happiness}</p>
                         <p>🎟️ x{pet.ticket}</p>
                         <p>Date of Birth: {pet.createdAt}</p>
                     </div>
