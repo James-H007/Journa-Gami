@@ -91,10 +91,16 @@ const VirtualPet = () => {
     }, []);
 
     const formatTime = (time) => {
+        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December"];
+        const day = time.getDay();
+        const date = time.getDate();
+        const month = time.getMonth();
         const hours = time.getHours().toString().padStart(2, '0');
         const minutes = time.getMinutes().toString().padStart(2, '0');
         const seconds = time.getSeconds().toString().padStart(2, '0');
-        return `${hours}:${minutes}:${seconds}`
+        return `${dayNames[day]}, ${monthNames[month]} ${date},  ${hours}:${minutes}:${seconds}`
     }
 
     return (
