@@ -1,0 +1,116 @@
+.virtual-pet-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-family: 'Rubik';
+}
+
+.virtual-pet-case {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    padding-top: 80px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+.virtual-pet-daily {
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.virtual-pet-container {
+    margin: 0 auto;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    height: 600px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.virtual-pet-upper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80%;
+    border: 1px solid black;
+}
+
+.virtual-pet-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.pet-image-screen {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    padding: 0px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* .virtual-pet-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 10px;
+    width: 50%;
+    height: 100%;
+    border-left: 1px solid black;
+} */
+
+.virtual-pet-lower {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 20%;
+    background-color: rgb(228, 228, 228);
+}
+
+.virtual-pet-button {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    height: 60px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.virtual-pet-button:hover {
+    cursor: pointer;
+}
+
+.pet-creation {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.petName-Input {
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-family: 'Rubik';
+    font-size: 20px;
+}

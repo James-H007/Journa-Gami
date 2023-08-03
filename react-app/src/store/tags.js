@@ -1,0 +1,6 @@
+const GET_ALL_TAGS = "tags/GET_ALL_TAGS"
+const GET_MY_TAGS = "tags/GET_MY_TAGS"
+const GET_TAG_ID = "tags/GET_TAG_ID"
+const CREATE_TAG = "tags/CREATE_TAG"
+const EDIT_TAG = "tags/EDIT_TAG"
+const DELETE_TAG = "tags/DELETE_TAG"

@@ -122,7 +122,7 @@ export const changeEntry = (entry_id, formData) => async (dispatch) => {
         },
         body: JSON.stringify(formData)
     })
-    console.log(formData)
+    // console.log(formData)
     if (response.ok) {
         const { entry } = await response.json()
         dispatch(editEntry(entry))

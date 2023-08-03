@@ -16,6 +16,7 @@ import JournalDelete from "../JournalDelete"
 import trash from "../../assets/trash.svg"
 import backroom from "../../assets/backroom.gif"
 
+
 const JournalInfo = () => {
     const [cover, setCover] = useState("")
     const [title, setTitle] = useState("")
