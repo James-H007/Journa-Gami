@@ -18,10 +18,10 @@ const VirtualPet = () => {
     const [time, setTime] = useState(new Date())
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
-    console.log(sessionUser)
+    // console.log(sessionUser)
     const currentPet = useSelector(state => state.pets.myPet)
     const allPets = useSelector(state => state.pets.allPets)
-    console.log(allPets)
+    // console.log(allPets)
 
     useEffect(async () => {
         await dispatch(getAllPets())
@@ -145,9 +145,6 @@ const VirtualPet = () => {
                                         modalComponent={<VirtualPetInfo pet={currentPet} />}
 
                                     />
-                                </div>
-                                <div className="virtual-pet-button" onClick={freeTicket}>
-                                    Free Ticket
                                 </div>
                             </div>
                         </div>
