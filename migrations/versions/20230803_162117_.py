@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 75242bc660e7
+Revision ID: 20a9a22fb0a9
 Revises: 
-Create Date: 2023-07-20 15:23:42.042074
+Create Date: 2023-08-03 16:21:17.924533
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '75242bc660e7'
+revision = '20a9a22fb0a9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,6 +26,16 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
+    )
+    op.create_table('friends',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('friend_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['friend_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('journals',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -43,6 +53,7 @@ def upgrade():
     sa.Column('name', sa.String(length=26), nullable=False),
     sa.Column('happiness', sa.Integer(), nullable=False),
     sa.Column('fetch', sa.Boolean(), nullable=False),
+    sa.Column('hunger', sa.Integer(), nullable=False),
     sa.Column('avatar_img_url', sa.String(length=1500), nullable=True),
     sa.Column('banner_img_url', sa.String(length=1500), nullable=True),
     sa.Column('state', sa.Integer(), nullable=True),
@@ -99,5 +110,6 @@ def downgrade():
     op.drop_table('entries')
     op.drop_table('pets')
     op.drop_table('journals')
+    op.drop_table('friends')
     op.drop_table('users')
     # ### end Alembic commands ###

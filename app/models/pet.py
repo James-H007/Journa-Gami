@@ -12,6 +12,7 @@ class Pet(db.Model):
     name = db.Column(db.String(26), nullable=False)
     happiness = db.Column(db.Integer, nullable=False, default=100)
     fetch = db.Column(db.Boolean, nullable=False, default=False)
+    hunger = db.Column(db.Integer, nullable=False, default=50)
     avatar_img_url = db.Column(db.String(1500), default = "https://cdn-icons-png.flaticon.com/512/5569/5569224.png")
     banner_img_url = db.Column(db.String(1500), default = "https://www.csn.edu/__data/assets/image/0031/19669/default-banner-img_1.png")
     state = db.Column(db.Integer, default = 1)

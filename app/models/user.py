@@ -21,6 +21,13 @@ class User(db.Model, UserMixin):
     pet = db.relationship("Pet", back_populates="user")
 
     tags = db.relationship("Tag", back_populates='user', cascade='all, delete-orphan')
+
+    friends = db.relationship(
+        "Friend",
+        primaryjoin="or_(User.id==Friend.user_id, User.id==Friend.friend_id)",
+        backref="user",
+    )
+
     @property
     def password(self):
         return self.hashed_password
