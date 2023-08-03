@@ -15,6 +15,7 @@ class Pet(db.Model):
     avatar_img_url = db.Column(db.String(1500), default = "https://cdn-icons-png.flaticon.com/512/5569/5569224.png")
     banner_img_url = db.Column(db.String(1500), default = "https://www.csn.edu/__data/assets/image/0031/19669/default-banner-img_1.png")
     state = db.Column(db.Integer, default = 1)
+    ticket = db.Column(db.Integer, default=0, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -28,6 +29,7 @@ class Pet(db.Model):
             "name": self.name,
             "happiness": self.happiness,
             "fetch": self.fetch,
+            "ticket": self.ticket,
             "avatarImgUrl": self.avatar_img_url,
             "bannerImgUrl": self.banner_img_url,
             "state": self.state,

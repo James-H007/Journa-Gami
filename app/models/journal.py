@@ -56,7 +56,7 @@ class Entry(db.Model):
     mood = db.Column(db.String(100))
     weather = db.Column(db.String(1000))
     location = db.Column(db.String(1000))
-    ticket = db.Column(db.Integer, default=0, nullable=False)
+
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

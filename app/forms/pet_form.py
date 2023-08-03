@@ -12,7 +12,8 @@ def validate_image(form, field):
 class PetForm(FlaskForm):
     name = StringField('name',validators=[Length(min=1, max=26, message="Tag name must be 1 to 26 characters")])
     happiness = IntegerField('happiness')
-    avatar_img_url = StringField('avatar', validators=[validate_image])
-    banner_img_url = StringField('banner', validators=[validate_image])
+    avatar_img_url = StringField('avatar')
+    banner_img_url = StringField('banner')
+    ticket = IntegerField('ticket')
     state = IntegerField('state')
     submit = SubmitField('Post')

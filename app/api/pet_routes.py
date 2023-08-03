@@ -38,7 +38,7 @@ def my_pet():
     """
 
     userId = current_user.id
-    user_pet = Pet.query.filter_by(owner_id=userId)
+    user_pet = Pet.query.filter_by(owner_id=userId).first()
 
     return {'pet': user_pet.to_dict()}, 200
 
@@ -94,6 +94,8 @@ def pet_edit(id):
         pet.avatar_img_url = data["avatar_img_url"]
     if "banner_img_url" in data:
         pet.banner_img_url = data["banner_img_url"]
+    if "ticket" in data:
+        pet.ticket = data["ticket"]
 
 
     db.session.commit()
