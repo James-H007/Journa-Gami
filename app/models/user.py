@@ -1,7 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, ForeignKeyConstraint
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -22,11 +23,36 @@ class User(db.Model, UserMixin):
 
     tags = db.relationship("Tag", back_populates='user', cascade='all, delete-orphan')
 
-    friends = db.relationship(
-        "Friend",
-        primaryjoin="or_(User.id==Friend.user_id, User.id==Friend.friend_id)",
-        backref="user",
+    added_friends = relationship(
+        'Friend',
+        primaryjoin='User.id==Friend.user_id',
+        back_populates='user'
     )
+    added_by = relationship(
+        'Friend',
+        primaryjoin='User.id==Friend.friend_id',
+        back_populates='friend'
+    )
+
+    sent_requests = relationship('FriendRequest', back_populates='sender', foreign_keys='FriendRequest.sender_id')
+    received_requests = relationship('FriendRequest', back_populates='receiver', foreign_keys='FriendRequest.receiver_id')
+
+    # friends = db.relationship(
+    #     "Friend",
+    #     primaryjoin="or_(User.id==Friend.user_id, User.id==Friend.friend_id)",
+    #     back_populates="user",
+    # )
+    added_friends = relationship(
+        'Friend',
+        primaryjoin='User.id==Friend.user_id',
+        back_populates='user'
+    )
+    added_by = relationship(
+        'Friend',
+        primaryjoin='User.id==Friend.friend_id',
+        back_populates='friend'
+    )
+
 
     @property
     def password(self):
@@ -46,5 +72,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'journals': [journal.to_dict() for journal in self.journals],
             'entries': [entry.to_dict() for entry in self.entries],
-            'tags': [tag.to_dict() for tag in self.tags]
+            'tags': [tag.to_dict() for tag in self.tags],
+            'addedFriends': [friend.friend.id for friend in self.added_friends],
+            'addedBy': [friend.friend.id for friend in self.added_by],
         }

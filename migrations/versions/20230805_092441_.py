@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 20a9a22fb0a9
+Revision ID: e2a5021e1abe
 Revises: 
-Create Date: 2023-08-03 16:21:17.924533
+Create Date: 2023-08-05 09:24:41.878421
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '20a9a22fb0a9'
+revision = 'e2a5021e1abe'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,15 +27,23 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
-    op.create_table('friends',
+    op.create_table('friend_requests',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('friend_id', sa.Integer(), nullable=False),
+    sa.Column('sender_id', sa.Integer(), nullable=True),
+    sa.Column('receiver_id', sa.Integer(), nullable=True),
+    sa.Column('status', sa.String(length=100), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['receiver_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['sender_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('friends',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('friend_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['friend_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('user_id', 'friend_id')
     )
     op.create_table('journals',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -111,5 +119,6 @@ def downgrade():
     op.drop_table('pets')
     op.drop_table('journals')
     op.drop_table('friends')
+    op.drop_table('friend_requests')
     op.drop_table('users')
     # ### end Alembic commands ###

@@ -35,7 +35,7 @@ function Navigation({ isLoaded }) {
 			{sessionUser && isLoaded && (
 				<ul className='navBar'>
 					<li>
-						<img src={user} alt="avatar" className='profile-button' onClick={handleAlert} />
+						<NavLink exact to="/friends"><img src={user} alt="avatar" className='profile-button' /></NavLink>
 					</li>
 					<li>
 						<NavLink exact to="/journals"><img src={box} alt="boxes" className='profile-button' /></NavLink>

@@ -96,6 +96,8 @@ def pet_edit(id):
         pet.banner_img_url = data["banner_img_url"]
     if "ticket" in data:
         pet.ticket = data["ticket"]
+    if "hunger" in data:
+        pet.hunger = data["hunger"]
 
 
     db.session.commit()

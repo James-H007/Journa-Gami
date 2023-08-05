@@ -12,6 +12,7 @@ from .config import Config
 from .api.pet_routes import pet_routes
 from .api.journal_routes import journal_routes
 from .api.entry_routes import entry_routes
+from .api.friend_routes import friend_routes
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
 # Setup login manager
@@ -33,6 +34,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(pet_routes, url_prefix='/api/pets')
 app.register_blueprint(journal_routes, url_prefix='/api/journals')
 app.register_blueprint(entry_routes, url_prefix='/api/entries')
+app.register_blueprint(friend_routes, url_prefix='/api/friend')
 db.init_app(app)
 Migrate(app, db)
 
