@@ -12,7 +12,8 @@ def get_friend_requests():
     """
     Get all current's users friend requests
     """
-    friend_requests = FriendRequest.query.filter_by(receiver_id=current_user.id).all()
+    user_id = current_user.id
+    friend_requests = FriendRequest.query.filter_by(receiver_id=user_id).all()
 
     return jsonify({"friend_requests": [request.to_dict() for request in friend_requests]}), 200
 

@@ -3,57 +3,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../store/session";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "./friend.css"
-import { addFriend, getFriendRequestsThunk, sendFriendRequest, sendFriendRequestThunk } from "../../store/friends";
+import { addFriend, getFriendRequestsThunk, getUserFRThunk, sendFriendRequest, sendFriendRequestThunk } from "../../store/friends";
+import FriendSearch from "./friendSearch";
 
 const Friend = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [searchText, setSearchText] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [tabNumber, setTabNumber] = useState(0)
 
     const dispatch = useDispatch()
     const allUsers = useSelector(state => state.session.users)
     const currentUser = useSelector(state => state.session.user)
     const friend = useSelector(state => state.friends)
-    console.log(currentUser)
-    console.log(allUsers)
-    console.log(friend)
-    const handleSearch = async (e) => {
-        setSearchText(e.target.value);
+    // console.log(currentUser)
+    // console.log(allUsers)
+    // console.log(friend)
 
-
-        if (e.target.value === '') {
-            setSearchResults([])
-            return
-
-        }
-
-        const results = allUsers.users.filter((i) =>
-            i.username.toLowerCase().includes(e.target.value.toLowerCase()) && i.username.toLowerCase() !== currentUser.username.toLowerCase()
-        );
-
-        setSearchResults(results);
-    };
 
     const addNewFriend = async (receiver_id) => {
         // console.log(receiver_id)
-        dispatch(sendFriendRequestThunk(receiver_id))
+        dispatch(getUserFRThunk(2))
+        console.log(friend)
     }
 
-    const isAdded = async (target) => {
-        if (allUsers && currentUser) {
-            currentUser.addedFriends.forEach(friend => {
-                if (friend.username.toLowerCase() === target) {
-                    console.log(friend.username)
-                    return true
-                }
-            });
-            return false
-        }
-    }
 
     useEffect(async () => {
         await dispatch(getAllUsers())
-        await dispatch(getFriendRequestsThunk())
         await setIsLoaded(true)
     }, [])
 
@@ -63,44 +39,32 @@ const Friend = () => {
                 isLoaded && (
                     <>
                         <div className="friend-wrapper">
-                            <form className="searchForm">
-                                <input
-                                    type="text"
-                                    name="search"
-                                    placeholder="Search..."
-                                    className="searchInput"
-                                    value={searchText}
-                                    onChange={handleSearch}
-                                ></input>
+                            <div className="friend-nav">
+                                <div className="friend-tabs">
+                                    <div className="friend-tab" onClick={() => { setTabNumber(0) }}>Friends</div>
+                                    <div className="friend-tab" onClick={() => { setTabNumber(1) }}>Inbox</div>
+                                    <div className="friend-tab" onClick={() => { setTabNumber(2) }}> Friend Search</div>
+                                </div>
+                            </div>
+                            <div className="friend-comp-wrapper">
+                                <div className="friend-component">
+                                    {(tabNumber == 0) && (
+                                        <>
 
-                                {searchResults.length > 0 && (
-                                    <ul className="search-results">
-                                        {searchResults.map((i) => (
-                                            <li className="search-li" key={i}>
-                                                <p className="search-title" onClick={() => {
-                                                    // setSearchResults([]);
-                                                    // setSearchText("");
-                                                }}>
-                                                    {i.username}
-
-                                                </p>
-                                                <button onClick={addNewFriend(i.id)}>Add friend?</button>
-                                                {/* {isAdded(i.username) && (
-                                                    <button onClick={addNewFriend(i.id)}>Add friend?</button>
-                                                )} */}
-
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-
-                                {/*  ----------------- SEARCH */}
-
-                                <button type="submit" className="search-button">
-                                    Search
-                                </button>
-                            </form>
-
+                                        </>
+                                    )}
+                                    {(tabNumber == 1) && (
+                                        <>
+                                            You are in tab 1
+                                        </>
+                                    )}
+                                    {(tabNumber == 2) && (
+                                        <>
+                                            <FriendSearch allUsers={allUsers} currentUser={currentUser} friend={friend} />
+                                        </>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </>
                 )
