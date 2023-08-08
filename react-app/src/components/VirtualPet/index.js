@@ -1,5 +1,13 @@
 import "./virtualPet.css"
 import loading from "../../assets/ungaloading.gif"
+import cafe from "../../assets/ungacafe.gif"
+import diner from "../../assets/ungadiner.gif"
+import supper from "../../assets/ungasupper.gif"
+import statica from "../../assets/static.gif"
+import bath from "../../assets/ungabath.gif"
+import dance from "../../assets/ungaDance.gif"
+
+
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { changePet, getAllPets, getPetById, getUserPet, makePet } from "../../store/pets"
@@ -16,12 +24,14 @@ const VirtualPet = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [petName, setPetName] = useState("")
     const [time, setTime] = useState(new Date())
+    const [petActivity, setPetActivity] = useState(diner)
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
-    // console.log(sessionUser)
     const currentPet = useSelector(state => state.pets.myPet)
     const allPets = useSelector(state => state.pets.allPets)
-    // console.log(allPets)
+
+    const activities = [diner, bath, dance]
+    const eating = [cafe, supper]
 
     useEffect(async () => {
         await dispatch(getAllPets())
@@ -67,8 +77,10 @@ const VirtualPet = () => {
             await setIsLoaded(true)
         }
         else {
-            alert("You don't have enough tickets")
+            return alert("You don't have enough tickets")
         }
+
+        setPetActivity(supper)
     }
 
     const freeTicket = async (e) => {
@@ -103,8 +115,28 @@ const VirtualPet = () => {
         return `${dayNames[day]}, ${monthNames[month]} ${date},  ${hours}:${minutes}:${seconds}`
     }
 
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            const randomActivity = Math.floor(Math.random() * (activities.length))
+            setPetActivity(statica)
+            //I want to add a small transition in between that only lasts 1 second
+            //It would set the state to setPetActivity(statica)
+            setTimeout(() => {
+                setPetActivity(activities[randomActivity])
+            }, 500)
+
+        }, 15000)
+        return () => clearInterval(intervalId)
+    }, []);
+
     return (
         <>
+            {!isLoaded && (
+                <div className="loading">
+                    <img src={loading} alt="loading-gif" />
+                    <p>Loading...</p>
+                </div>
+            )}
             {isLoaded && !hasPet && (
                 <div className="pet-creation">
                     <form className="pet-form" onSubmit={handleSubmit}>
@@ -129,7 +161,7 @@ const VirtualPet = () => {
                             </div>
                             <div className="virtual-pet-upper">
                                 <div className="virtual-pet-screen">
-                                    <img src={test} alt="pet" className="pet-image-screen" />
+                                    <img src={petActivity} alt="pet" className="pet-image-screen" />
                                 </div>
 
                             </div>
@@ -145,6 +177,9 @@ const VirtualPet = () => {
                                         modalComponent={<VirtualPetInfo pet={currentPet} />}
 
                                     />
+                                </div>
+                                <div className="virtual-pet-button" onClick={freeTicket}>
+                                    Free Ticket
                                 </div>
                             </div>
                         </div>

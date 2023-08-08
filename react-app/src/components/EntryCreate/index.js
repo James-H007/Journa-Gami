@@ -7,6 +7,7 @@ import loading from "../../assets/ungaloading.gif"
 import backroom from "../../assets/backroom.gif"
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'
+import { changePet, getUserPet } from "../../store/pets"
 
 const EntryCreate = () => {
     const [title, setTitle] = useState("")
@@ -22,12 +23,57 @@ const EntryCreate = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const sessionUser = useSelector(state => state.session.user)
-    // console.log(id, "HERE IS THE ID")
+    const entries = useSelector(state => state.entries.myEntries)
+    const currentPet = useSelector(state => state.pets.myPet)
+    // console.log(entries)
+
+    const isDailyEntry = async () => {
+        const currentDate = new Date()
+        if (entries) {
+            const currentDay = currentDate.getDate();
+            const currentMonth = currentDate.getMonth()
+            const hasDailyEntry = entries.some(entry => {
+                let entryDate = new Date(entry.createdAt);
+                // If the entry day and month is equal to the current date
+                //Then that means they have created an entry for today
+                //So return false
+                const entryDay = entryDate.getDate();
+                const entryMonth = entryDate.getMonth();
+
+                return (entryDay === currentDay && entryMonth === currentMonth)
+
+            });
+
+            if (hasDailyEntry) {
+                // alert("This user has already submitted an daily entry")
+                return false
+            }
+            else {
+                // alert("This is a new daily entry")
+                return true
+            }
+        }
+
+    }
+
     useEffect(async () => {
         if (sessionUser) {
-            setIsLoaded(true)
+            await dispatch(getUserEntries())
+            await dispatch(getUserPet())
+            await setIsLoaded(true)
         }
     }, [sessionUser])
+
+    const freeTicket = async () => {
+
+        const form = { ticket: (currentPet.ticket + 1) };
+        await dispatch(changePet(currentPet.id, form));
+        await dispatch(getUserPet())
+
+        return
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         let form = { title, banner, content, weather, mood, location, favorite };
@@ -67,10 +113,14 @@ const EntryCreate = () => {
         }
 
 
-        console.log(form)
-        console.log(id)
+        // console.log(form)
+        // console.log(id)
         const data = await dispatch(makeEntry(id, form))
-        console.log(data)
+        // console.log(data)
+        if (await isDailyEntry()) {
+            await freeTicket()
+            alert("You got a daily ticket!")
+        }
         await dispatch(getUserEntries())
         if (data) {
             await history.push(`/entries/${data.id}`)
