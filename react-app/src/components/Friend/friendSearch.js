@@ -10,8 +10,8 @@ const FriendSearch = ({ currentUser, allUsers, friend }) => {
 
     const addNewFriend = async (receiver_id) => {
         // console.log(receiver_id)
-        dispatch(getUserFRThunk(2))
-        console.log(friend)
+        // dispatch(getUserFRThunk(2))
+        // console.log(friend)
     }
 
     const handleSearch = async (e) => {
@@ -33,43 +33,41 @@ const FriendSearch = ({ currentUser, allUsers, friend }) => {
 
     return (
         <>
-            <form className="searchForm">
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search..."
-                    className="searchInput"
-                    value={searchText}
-                    onChange={handleSearch}
-                ></input>
+            <div className="search-wrapper">
+                <form className="searchForm">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search..."
+                        className="searchInput"
+                        value={searchText}
+                        onChange={handleSearch}
+                    ></input>
 
-                {searchResults.length > 0 && (
-                    <ul className="search-results">
-                        {searchResults.map((i) => (
-                            <li className="search-li" key={i}>
-                                <p className="search-title" onClick={() => {
-                                    // setSearchResults([]);
-                                    // setSearchText("");
-                                }}>
-                                    {i.username}
-
-                                </p>
-                                <button onClick={addNewFriend(i.id)}>Add friend?</button>
-                                {/* {isAdded(i.username) && (
+                    {searchResults.length > 0 && (
+                        <ul className="search-results">
+                            {searchResults.map((i) => (
+                                <li className="search-li" key={i}>
+                                    <p className="search-title">
+                                        {i.username}
+                                    </p>
+                                    <button className="submit" onClick={addNewFriend(i.id)}>Add friend?</button>
+                                    {/* {isAdded(i.username) && (
                                                     <button onClick={addNewFriend(i.id)}>Add friend?</button>
                                                 )} */}
 
-                            </li>
-                        ))}
-                    </ul>
-                )}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
 
-                {/*  ----------------- SEARCH */}
+                    {/*  ----------------- SEARCH */}
 
-                <button type="submit" className="search-button">
+                    {/* <button type="submit" className="search-button">
                     Search
-                </button>
-            </form>
+                </button> */}
+                </form>
+            </div >
         </>
     )
 }

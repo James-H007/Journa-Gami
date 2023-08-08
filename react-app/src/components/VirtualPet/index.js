@@ -20,9 +20,11 @@ const VirtualPet = () => {
 
     const test = "https://cdn.discordapp.com/attachments/1116804623211184308/1131726488119541771/ungadiner.gif"
     const [isLoaded, setIsLoaded] = useState(false)
+    const [isAuth, setIsAuth] = useState(false)
     const [hasPet, setHasPet] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const [petName, setPetName] = useState("")
+    const [errors, setErrors] = useState([])
     const [time, setTime] = useState(new Date())
     const [petActivity, setPetActivity] = useState(diner)
     const dispatch = useDispatch()
@@ -44,16 +46,18 @@ const VirtualPet = () => {
             if (allPets.find(pet => pet.ownerId === sessionUser.id)) {
                 await dispatch(getUserPet())
                 await setHasPet(true)
+                await setIsAuth(true)
             }
             else {
-                setHasPet(false)
+                await setHasPet(false)
+                await setIsAuth(true)
             }
         }
     }, [sessionUser, allPets])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (petName.trim().length !== 0) {
+        if (petName.trim().length !== 0 && petName.length < 26) {
             const form = { name: petName }
             await dispatch(makePet(form))
             await setIsLoaded(false)
@@ -63,6 +67,7 @@ const VirtualPet = () => {
             await setIsLoaded(true)
         }
         else {
+            setErrors(["Pet name must be between 0 and 26 characters"])
             return
         }
     }
@@ -119,8 +124,6 @@ const VirtualPet = () => {
         const intervalId = setInterval(() => {
             const randomActivity = Math.floor(Math.random() * (activities.length))
             setPetActivity(statica)
-            //I want to add a small transition in between that only lasts 1 second
-            //It would set the state to setPetActivity(statica)
             setTimeout(() => {
                 setPetActivity(activities[randomActivity])
             }, 500)
@@ -131,13 +134,13 @@ const VirtualPet = () => {
 
     return (
         <>
-            {!isLoaded && (
+            {(!isLoaded || !isAuth) && (
                 <div className="loading">
                     <img src={loading} alt="loading-gif" />
                     <p>Loading...</p>
                 </div>
             )}
-            {isLoaded && !hasPet && (
+            {isLoaded && !hasPet && isAuth && (
                 <div className="pet-creation">
                     <form className="pet-form" onSubmit={handleSubmit}>
                         <input
@@ -148,11 +151,16 @@ const VirtualPet = () => {
                             placeholder="Enter a name for your pet..."
                             className="petName-Input"
                         />
-                        <button type="submit" className="signup-button">Submit</button>
+                        <button type="submit" className="signup-button" disabled={Object.keys(errors).length > 0}>Submit</button>
                     </form>
+                    <ul>
+                        {errors.map((error, idx) => (
+                            <div key={idx} className="error">{error}</div>
+                        ))}
+                    </ul>
                 </div>
             )}
-            {isLoaded && hasPet && (
+            {isLoaded && hasPet && isAuth && (
                 < div className="virtual-pet-wrapper">
                     <div className="virtual-pet-case">
                         <div className="virtual-pet-container">
@@ -178,9 +186,9 @@ const VirtualPet = () => {
 
                                     />
                                 </div>
-                                <div className="virtual-pet-button" onClick={freeTicket}>
+                                {/* <div className="virtual-pet-button" onClick={freeTicket}>
                                     Free Ticket
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

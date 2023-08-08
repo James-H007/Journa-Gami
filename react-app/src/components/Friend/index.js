@@ -5,6 +5,8 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "./friend.css"
 import { addFriend, getFriendRequestsThunk, getUserFRThunk, sendFriendRequest, sendFriendRequestThunk } from "../../store/friends";
 import FriendSearch from "./friendSearch";
+import FriendList from "./friendList";
+import Inbox from "./inbox";
 
 const Friend = () => {
     const [isLoaded, setIsLoaded] = useState(false)
@@ -50,13 +52,15 @@ const Friend = () => {
                                 <div className="friend-component">
                                     {(tabNumber == 0) && (
                                         <>
+                                            <FriendList allUsers={allUsers} currentUser={currentUser} friend={friend} />
 
                                         </>
                                     )}
                                     {(tabNumber == 1) && (
                                         <>
-                                            You are in tab 1
+                                            <Inbox allUsers={allUsers} currentUser={currentUser} friend={friend} />
                                         </>
+
                                     )}
                                     {(tabNumber == 2) && (
                                         <>

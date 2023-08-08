@@ -40,9 +40,9 @@ function Navigation({ isLoaded }) {
 					<li>
 						<NavLink exact to="/journals"><img src={box} alt="boxes" className='profile-button' /></NavLink>
 					</li>
-					<li>
+					{/* <li>
 						<img src={tags} alt="tags" className='profile-button' onClick={handleAlert} />
-					</li>
+					</li> */}
 					<li>
 						<NavLink exact to="/pet"><img src={pet} alt="pet" className='profile-button' /> </NavLink>
 					</li>
