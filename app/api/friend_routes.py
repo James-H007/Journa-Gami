@@ -37,7 +37,7 @@ def decline_friend_request(request_id):
     friend_request = FriendRequest.query.get(request_id)
 
     if friend_request is None or friend_request.receiver_id != current_user.id:
-        return jsonify({'error': 'error at friendrequest_routes def decline_friend_request()'})
+        return jsonify({'error': 'Decline failed'})
 
     friend_request.status = 'Declined'
 
@@ -108,7 +108,7 @@ def accept_friend_request(request_id):
     db.session.add(friend1)
     db.session.add(friend2)
 
-    friend_request.status = 'Accepted'
+    friend_request.accepted = True
 
     db.session.delete(friend_request)
     db.session.commit()

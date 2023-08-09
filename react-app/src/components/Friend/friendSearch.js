@@ -7,10 +7,13 @@ const FriendSearch = ({ currentUser, allUsers, friend }) => {
     const [searchText, setSearchText] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const dispatch = useDispatch()
+    console.log(friend)
+    console.log(friend)
 
     const addNewFriend = async (receiver_id) => {
         // console.log(receiver_id)
-        // dispatch(getUserFRThunk(2))
+        console.log(receiver_id)
+        await dispatch(sendFriendRequestThunk(receiver_id))
         // console.log(friend)
     }
 
@@ -51,7 +54,7 @@ const FriendSearch = ({ currentUser, allUsers, friend }) => {
                                     <p className="search-title">
                                         {i.username}
                                     </p>
-                                    <button className="submit" onClick={addNewFriend(i.id)}>Add friend?</button>
+                                    <button className="submit" onClick={() => { addNewFriend(i.id) }}>Add friend?</button>
                                     {/* {isAdded(i.username) && (
                                                     <button onClick={addNewFriend(i.id)}>Add friend?</button>
                                                 )} */}

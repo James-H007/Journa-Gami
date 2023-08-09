@@ -73,6 +73,13 @@ class User(db.Model, UserMixin):
             'journals': [journal.to_dict() for journal in self.journals],
             'entries': [entry.to_dict() for entry in self.entries],
             'tags': [tag.to_dict() for tag in self.tags],
+            'pet': [pet.to_dict() for pet in self.pet] if self.pet else None,
             'addedFriends': [friend.friend.id for friend in self.added_friends],
             'addedBy': [friend.friend.id for friend in self.added_by],
+        }
+    def to_dict_simple(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
         }

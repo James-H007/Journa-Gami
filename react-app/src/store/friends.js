@@ -95,7 +95,7 @@ export const sendFriendRequestThunk = (receiver_id) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(sendFriendRequest({ receiver_id }));
+        dispatch(sendFriendRequest(receiver_id));
     } else {
         const data = await response.json();
         if (data.errors) {

@@ -21,6 +21,7 @@ const Friend = () => {
     // console.log(currentUser)
     // console.log(allUsers)
     // console.log(friend)
+    console.log(friend)
 
 
     const addNewFriend = async (receiver_id) => {
@@ -32,6 +33,7 @@ const Friend = () => {
 
     useEffect(async () => {
         await dispatch(getAllUsers())
+        await dispatch(getFriendRequestsThunk())
         await setIsLoaded(true)
     }, [])
 

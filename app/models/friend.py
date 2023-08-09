@@ -74,6 +74,7 @@ class FriendRequest(db.Model):
     sender_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     receiver_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     status = db.Column(db.String(100))
+    accepted = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -85,6 +86,7 @@ class FriendRequest(db.Model):
             'id': self.id,
             'sender': self.sender.to_dict_simple() if self.sender else None,
             'receiver': self.receiver.to_dict_simple() if self.receiver else None,
+            'accepted': self.accepted,
             'status': self.status,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at
