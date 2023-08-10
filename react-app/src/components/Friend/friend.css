@@ -24,7 +24,7 @@
     background-color: black;
     border-radius: 10px;
     align-items: center;
-    animation: fadeIn 1s 1;
+    animation: fromBelow 1s 1;
 }
 
 .search-results {
@@ -117,4 +117,45 @@
 
 .friend-list {
     width: 95%;
+}
+
+.add-user {
+    width: 80px;
+    height: 40px;
+
+}
+
+.add-user:hover {
+    cursor: pointer;
+    animation: miniHop 0.3s 3;
+}
+
+@keyframes fromBelow {
+    0% {
+        transform: translateY(80%);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateY(50%);
+        opacity: .5;
+    }
+
+    100% {
+        transform: translateY(00);
+        opacity: 1;
+    }
+}
+
+@keyframes miniHop {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+
+    }
 }

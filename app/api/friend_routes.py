@@ -17,6 +17,17 @@ def get_friend_requests():
 
     return jsonify({"friend_requests": [request.to_dict() for request in friend_requests]}), 200
 
+@friend_routes.route('/outgoing-requests', methods=['GET'])
+@login_required
+def get_outgoing_friend_requests():
+    """
+    Get all current's users out-going friend requests
+    """
+    user_id = current_user.id
+    friend_requests = FriendRequest.query.filter_by(sender_id=user_id).all()
+
+    return jsonify({"friend_requests": [request.to_dict() for request in friend_requests]}), 200
+
 @friend_routes.route('/<int:id>/requests', methods = ['GET'])
 @login_required
 def get_requests_user_id(id):
@@ -28,7 +39,7 @@ def get_requests_user_id(id):
     return jsonify({"friend_requests": [request.to_dict() for request in friend_requests]}), 200
 
 
-@friend_routes.route('/<int:request_id>/decline', methods=['POST'])
+@friend_routes.route('/<int:request_id>/decline', methods=['DELETE'])
 @login_required
 def decline_friend_request(request_id):
     """
@@ -44,7 +55,8 @@ def decline_friend_request(request_id):
     db.session.delete(friend_request)
     db.session.commit()
 
-    return {'friend_requests': [friend_request.to_dict()]}
+    # return {'friend_requests': [friend_request.to_dict()]}
+    return {'message': "Successfully deleted"}, 204
 
 
 @friend_routes.route('/<int:friend_id>/add', methods=['POST'])
@@ -80,7 +92,7 @@ def send_friend_request(receiver_id):
     db.session.add(friend_request)
     db.session.commit()
 
-    return jsonify({'message': 'Friend request sent'}), 201
+    return jsonify({'friend_request': friend_request.to_dict()}), 201
 
 
 @friend_routes.route('/<int:request_id>/accept', methods=['POST'])

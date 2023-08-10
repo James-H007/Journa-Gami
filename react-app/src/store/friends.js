@@ -1,6 +1,7 @@
 const GET_MY_FRIENDS = "friend-request/GET_ALL_FRIENDS"
 const ADD_FRIEND = "friend-request/ADD_FRIEND";
 const REMOVE_FRIEND = "friend-request/REMOVE_FRIEND"
+const GET_OUTGOING_FRIEND_REQUESTS = "friend-request/GET_OUTGOING_FRIEND_REQUESTS"
 const GET_A_USER_FRIEND_REQUESTS = "friend-request/GET_A_USER_FRIEND_REQUESTS"
 const GET_FRIEND_REQUESTS = "friend-request/GET_FRIEND_REQUESTS";
 const ACCEPT_FRIEND_REQUEST = "friend-request/ACCEPT_FRIEND_REQUEST";
@@ -10,6 +11,13 @@ const DECLINE_FRIEND_REQUEST = "friend-request/DECLINE_FRIEND_REQUEST";
 const getAUserFriendRequests = (friendRequests) => {
     return {
         type: GET_A_USER_FRIEND_REQUESTS,
+        payload: friendRequests
+    }
+}
+
+const getAUserFriendOutgoingRequests = (friendRequests) => {
+    return {
+        type: GET_OUTGOING_FRIEND_REQUESTS,
         payload: friendRequests
     }
 }
@@ -94,8 +102,9 @@ export const sendFriendRequestThunk = (receiver_id) => async (dispatch) => {
     })
 
     if (response.ok) {
-        const data = await response.json();
-        dispatch(sendFriendRequest(receiver_id));
+        const { friend_request } = await response.json();
+        dispatch(sendFriendRequest(friend_request));
+        return friend_request
     } else {
         const data = await response.json();
         if (data.errors) {
@@ -117,7 +126,7 @@ export const postAcceptFriendRequestThunk = (request_id) => async (dispatch) => 
 
         if (response.ok) {
             const data = await response.json()
-            console.log(data);
+            // console.log(data);
             dispatch(acceptFriendRequest(data))
 
         } else {
@@ -213,7 +222,8 @@ export const getFriendRequestsThunk = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(getFriendRequests(data.friend_requests))
-
+        console.log(data)
+        return data
     } else {
         const data = await response.json()
 
@@ -223,9 +233,30 @@ export const getFriendRequestsThunk = () => async (dispatch) => {
     }
 };
 
+//@friend_routes.route('/outgoing-requests', methods=['GET'])
+export const getOutgoingFriendRequestsThunk = () => async (dispatch) => {
+    const response = await fetch(`/api/friend/outgoing-requests`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(getAUserFriendOutgoingRequests(data.friend_requests))
+
+    } else {
+        const data = await response.json()
+
+        if (data.errors) {
+            return data.errors
+        }
+    }
+}
+
 export const postDeclineFriendRequestThunk = (request_id) => async (dispatch) => {
     const response = await fetch(`/api/friend/${request_id}/decline`, {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -234,20 +265,21 @@ export const postDeclineFriendRequestThunk = (request_id) => async (dispatch) =>
     if (response.ok) {
         dispatch(declineFriendRequest(request_id))
 
-    } else {
-        const data = await response.json()
-
-        if (data.errors) {
-            return data.errors
-        }
     }
+    // else {
+    //     const data = await response.json()
+
+    //     if (data.errors) {
+    //         return data.errors
+    //     }
+    // }
 
 };
 
 
 
 
-const initialState = { requests: [], friends: [], query: null };
+const initialState = { requests: [], friends: [], query: null, outgoing: [] };
 
 export default function friendRequestReducer(state = initialState, action) {
     switch (action.type) {
@@ -255,6 +287,11 @@ export default function friendRequestReducer(state = initialState, action) {
             return {
                 ...state,
                 query: action.payload
+            }
+        case GET_OUTGOING_FRIEND_REQUESTS:
+            return {
+                ...state,
+                outgoing: action.payload
             }
 
         case GET_FRIEND_REQUESTS:
@@ -266,14 +303,15 @@ export default function friendRequestReducer(state = initialState, action) {
         case DECLINE_FRIEND_REQUEST:
             return {
                 ...state,
-                requests: state.requests.filter((i) => i.id !== action.payload)
+                requests: state.requests.filter((i) => i.id !== action.payload),
+                outgoing: state.outgoing.filter((i) => i.id !== action.payload)
             }
 
         case ACCEPT_FRIEND_REQUEST:
             return {
                 ...state,
                 requests: state.requests.filter((i) => i.id !== action.payload.id),
-                friends: [...state.friends, ...action.payload]
+                friends: [...state.friends, action.payload]
             }
 
         case SEND_FRIEND_REQUEST:

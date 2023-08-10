@@ -1,20 +1,41 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./friend.css"
-import { addFriend, getFriendRequestsThunk, getUserFRThunk, sendFriendRequest, sendFriendRequestThunk } from "../../store/friends";
+import { addFriend, getAllFriendsThunk, getFriendRequestsThunk, getOutgoingFriendRequestsThunk, getUserFRThunk, sendFriendRequest, sendFriendRequestThunk } from "../../store/friends";
+import { getAllUsers } from "../../store/session";
+import addUser from "../../assets/user-plus-solid.svg"
 
-const FriendSearch = ({ currentUser, allUsers, friend }) => {
+const FriendSearch = () => {
     const [searchText, setSearchText] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [resultsLoaded, setResultsLoaded] = useState(false)
     const dispatch = useDispatch()
-    console.log(friend)
-    console.log(friend)
+    const allUsers = useSelector(state => state.session.users)
+    const currentUser = useSelector(state => state.session.user)
+    const friend = useSelector(state => state.friends)
+
+
+    useEffect(async () => {
+        await dispatch(getAllUsers())
+        await dispatch(getFriendRequestsThunk())
+        await dispatch(getOutgoingFriendRequestsThunk())
+        await dispatch(getAllFriendsThunk())
+        await setIsLoaded(true)
+        await setResultsLoaded(true)
+    }, [])
+
+
+
 
     const addNewFriend = async (receiver_id) => {
-        // console.log(receiver_id)
-        console.log(receiver_id)
+        await setResultsLoaded(false)
         await dispatch(sendFriendRequestThunk(receiver_id))
-        // console.log(friend)
+        await dispatch(getAllUsers())
+        await dispatch(getFriendRequestsThunk())
+        await dispatch(getOutgoingFriendRequestsThunk())
+        await dispatch(getAllFriendsThunk())
+        await setResultsLoaded(true)
     }
 
     const handleSearch = async (e) => {
@@ -28,49 +49,91 @@ const FriendSearch = ({ currentUser, allUsers, friend }) => {
         }
 
         const results = allUsers.users.filter((i) =>
-            i.username.toLowerCase().includes(e.target.value.toLowerCase()) && i.username.toLowerCase() !== currentUser.username.toLowerCase()
+            i.username.toLowerCase().includes(e.target.value.toLowerCase())
+            && i.username.toLowerCase() !== currentUser.username.toLowerCase()
         );
 
         setSearchResults(results);
     };
 
+    const isAdded = (userId) => {
+        console.log(userId)
+        if (friend.requests || friend.outgoing) {
+
+            if (friend.requests.length > 0) {
+                if (friend.requests.some((request) => (request.receiver.id === userId))
+                    ||
+                    friend.requests.some((request) => (request.sender.id === userId))) {
+                    console.log("hit")
+                    return true
+                }
+            }
+            if (friend.outgoing.length > 0) {
+                if (friend.outgoing.some((request) => (request.receiver.id === userId))
+                    ||
+                    friend.outgoing.some((request) => (request.sender.id === userId))) {
+                    return true
+                }
+            }
+            if (friend.friends.length > 0) {
+                if (friend.friends.some((friend) => (friend.id === userId))) {
+                    return true
+                }
+            }
+
+            return false
+        }
+
+        return false
+
+    }
+
+
+
     return (
         <>
-            <div className="search-wrapper">
-                <form className="searchForm">
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search..."
-                        className="searchInput"
-                        value={searchText}
-                        onChange={handleSearch}
-                    ></input>
-
-                    {searchResults.length > 0 && (
-                        <ul className="search-results">
-                            {searchResults.map((i) => (
-                                <li className="search-li" key={i}>
-                                    <p className="search-title">
-                                        {i.username}
-                                    </p>
-                                    <button className="submit" onClick={() => { addNewFriend(i.id) }}>Add friend?</button>
-                                    {/* {isAdded(i.username) && (
+            {isLoaded && (
+                <div className="search-wrapper">
+                    <form className="searchForm">
+                        <input
+                            type="text"
+                            name="search"
+                            placeholder="Search..."
+                            className="searchInput"
+                            value={searchText}
+                            onChange={handleSearch}
+                        ></input>
+                        {resultsLoaded && (
+                            <>
+                                {searchResults.length > 0 && (
+                                    <ul className="search-results">
+                                        {searchResults.map((user) => (
+                                            <li className="search-li" key={user.id}>
+                                                <p className="search-title">
+                                                    {user.username}
+                                                </p>
+                                                {!isAdded(user.id) && (
+                                                    <img src={addUser} className="add-user" onClick={() => { addNewFriend(user.id) }} />
+                                                )}
+                                                {/* {isAdded(i.username) && (
                                                     <button onClick={addNewFriend(i.id)}>Add friend?</button>
                                                 )} */}
 
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                                            </li>
+                                        ))}
+                                    </ul>
 
-                    {/*  ----------------- SEARCH */}
+                                )}
+                            </>
+                        )}
+                        {/*  ----------------- SEARCH */}
 
-                    {/* <button type="submit" className="search-button">
+                        {/* <button type="submit" className="search-button">
                     Search
                 </button> */}
-                </form>
-            </div >
+                    </form>
+                </div>
+            )}
         </>
     )
 }
