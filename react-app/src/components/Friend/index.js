@@ -21,7 +21,7 @@ const Friend = () => {
     // console.log(currentUser)
     // console.log(allUsers)
     // console.log(friend)
-    console.log(friend)
+    // console.log(friend)
 
 
     // const addNewFriend = async (receiver_id) => {
@@ -68,7 +68,7 @@ const Friend = () => {
                                     )}
                                     {(tabNumber == 2) && (
                                         <>
-                                            <FriendSearch allUsers={allUsers} currentUser={currentUser} friend={friend} />
+                                            <FriendSearch />
                                         </>
                                     )}
                                 </div>
