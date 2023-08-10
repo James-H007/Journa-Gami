@@ -136,12 +136,18 @@ def remove_friend(friend_id):
     Remove friend
     """
 
-    friend = Friend.query.filter((Friend.user_id == current_user.id) & (Friend.friend_id == friend_id)).first()
+    friend = Friend.query.filter(((Friend.user_id == current_user.id) & (Friend.friend_id == friend_id))).first()
+    friend2 = Friend.query.filter((Friend.user_id == friend_id) & (Friend.friend_id == current_user.id)).first()
 
-    if not friend:
+    if not friend and not friend2 :
         return jsonify({'error': 'Friend does not exist'}), 404
 
-    db.session.delete(friend)
+    if friend:
+        db.session.delete(friend)
+
+    if friend2:
+        db.session.delete(friend2)
+
     db.session.commit()
 
     return jsonify({'message': 'Successfully unfriended'}), 200
