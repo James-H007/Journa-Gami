@@ -10,6 +10,7 @@ import * as journalActions from "./store/journals"
 import * as entryActions from "./store/entries"
 import * as imageActions from "./store/images"
 import * as petsActions from "./store/pets"
+import * as friendActions from "./store/friends"
 import App from "./App";
 
 import "./index.css";
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV !== "production") {
 	window.entryActions = entryActions;
 	window.imageActions = imageActions;
 	window.petsActions = petsActions;
+	window.friendActions = friendActions
 }
 
 // Wrap the application with the Modal provider and render the Modal component

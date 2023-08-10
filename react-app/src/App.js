@@ -14,6 +14,7 @@ import EntryCreate from "./components/EntryCreate";
 import EntryEdit from "./components/EntryEdit";
 import EntryDelete from "./components/EntryDelete";
 import VirtualPet from "./components/VirtualPet";
+import Friend from "./components/Friend";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <SignupFormPage />
+            </Route>
+            <Route path="/friends">
+              <Friend />
             </Route>
             <Route path="/pet">
               <VirtualPet />

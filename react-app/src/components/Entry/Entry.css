@@ -13,7 +13,6 @@
     border: 1px solid black;
     align-items: center;
     animation: fadeIn 3s 1;
-
 }
 
 
@@ -146,6 +145,7 @@
     height: 100%;
     background-color: black;
     border-radius: 10px;
+    position: relative;
 }
 
 .entry-info-2-banner {

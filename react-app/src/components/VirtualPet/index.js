@@ -1,5 +1,13 @@
 import "./virtualPet.css"
 import loading from "../../assets/ungaloading.gif"
+import cafe from "../../assets/ungacafe.gif"
+import diner from "../../assets/ungadiner.gif"
+import supper from "../../assets/ungasupper.gif"
+import statica from "../../assets/static.gif"
+import bath from "../../assets/ungabath.gif"
+import dance from "../../assets/ungaDance.gif"
+
+
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { changePet, getAllPets, getPetById, getUserPet, makePet } from "../../store/pets"
@@ -12,16 +20,20 @@ const VirtualPet = () => {
 
     const test = "https://cdn.discordapp.com/attachments/1116804623211184308/1131726488119541771/ungadiner.gif"
     const [isLoaded, setIsLoaded] = useState(false)
+    const [isAuth, setIsAuth] = useState(false)
     const [hasPet, setHasPet] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const [petName, setPetName] = useState("")
+    const [errors, setErrors] = useState([])
     const [time, setTime] = useState(new Date())
+    const [petActivity, setPetActivity] = useState(diner)
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
-    // console.log(sessionUser)
     const currentPet = useSelector(state => state.pets.myPet)
     const allPets = useSelector(state => state.pets.allPets)
-    // console.log(allPets)
+
+    const activities = [diner, bath, dance]
+    const eating = [cafe, supper]
 
     useEffect(async () => {
         await dispatch(getAllPets())
@@ -34,16 +46,18 @@ const VirtualPet = () => {
             if (allPets.find(pet => pet.ownerId === sessionUser.id)) {
                 await dispatch(getUserPet())
                 await setHasPet(true)
+                await setIsAuth(true)
             }
             else {
-                setHasPet(false)
+                await setHasPet(false)
+                await setIsAuth(true)
             }
         }
     }, [sessionUser, allPets])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (petName.trim().length !== 0) {
+        if (petName.trim().length !== 0 && petName.length < 26) {
             const form = { name: petName }
             await dispatch(makePet(form))
             await setIsLoaded(false)
@@ -53,6 +67,7 @@ const VirtualPet = () => {
             await setIsLoaded(true)
         }
         else {
+            setErrors(["Pet name must be between 0 and 26 characters"])
             return
         }
     }
@@ -67,8 +82,10 @@ const VirtualPet = () => {
             await setIsLoaded(true)
         }
         else {
-            alert("You don't have enough tickets")
+            return alert("You don't have enough tickets")
         }
+
+        setPetActivity(supper)
     }
 
     const freeTicket = async (e) => {
@@ -103,9 +120,27 @@ const VirtualPet = () => {
         return `${dayNames[day]}, ${monthNames[month]} ${date},  ${hours}:${minutes}:${seconds}`
     }
 
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            const randomActivity = Math.floor(Math.random() * (activities.length))
+            setPetActivity(statica)
+            setTimeout(() => {
+                setPetActivity(activities[randomActivity])
+            }, 500)
+
+        }, 15000)
+        return () => clearInterval(intervalId)
+    }, []);
+
     return (
         <>
-            {isLoaded && !hasPet && (
+            {(!isLoaded || !isAuth) && (
+                <div className="loading">
+                    <img src={loading} alt="loading-gif" />
+                    <p>Loading...</p>
+                </div>
+            )}
+            {isLoaded && !hasPet && isAuth && (
                 <div className="pet-creation">
                     <form className="pet-form" onSubmit={handleSubmit}>
                         <input
@@ -116,11 +151,16 @@ const VirtualPet = () => {
                             placeholder="Enter a name for your pet..."
                             className="petName-Input"
                         />
-                        <button type="submit" className="signup-button">Submit</button>
+                        <button type="submit" className="signup-button" disabled={Object.keys(errors).length > 0}>Submit</button>
                     </form>
+                    <ul>
+                        {errors.map((error, idx) => (
+                            <div key={idx} className="error">{error}</div>
+                        ))}
+                    </ul>
                 </div>
             )}
-            {isLoaded && hasPet && (
+            {isLoaded && hasPet && isAuth && (
                 < div className="virtual-pet-wrapper">
                     <div className="virtual-pet-case">
                         <div className="virtual-pet-container">
@@ -129,7 +169,7 @@ const VirtualPet = () => {
                             </div>
                             <div className="virtual-pet-upper">
                                 <div className="virtual-pet-screen">
-                                    <img src={test} alt="pet" className="pet-image-screen" />
+                                    <img src={petActivity} alt="pet" className="pet-image-screen" />
                                 </div>
 
                             </div>
@@ -146,6 +186,9 @@ const VirtualPet = () => {
 
                                     />
                                 </div>
+                                {/* <div className="virtual-pet-button" onClick={freeTicket}>
+                                    Free Ticket
+                                </div> */}
                             </div>
                         </div>
                     </div>

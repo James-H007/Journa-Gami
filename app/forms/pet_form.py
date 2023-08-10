@@ -15,5 +15,6 @@ class PetForm(FlaskForm):
     avatar_img_url = StringField('avatar')
     banner_img_url = StringField('banner')
     ticket = IntegerField('ticket')
+    hunger = IntegerField('hunger')
     state = IntegerField('state')
     submit = SubmitField('Post')
