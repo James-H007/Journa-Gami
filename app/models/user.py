@@ -42,16 +42,7 @@ class User(db.Model, UserMixin):
     #     primaryjoin="or_(User.id==Friend.user_id, User.id==Friend.friend_id)",
     #     back_populates="user",
     # )
-    added_friends = relationship(
-        'Friend',
-        primaryjoin='User.id==Friend.user_id',
-        back_populates='user'
-    )
-    added_by = relationship(
-        'Friend',
-        primaryjoin='User.id==Friend.friend_id',
-        back_populates='friend'
-    )
+
 
 
     @property
