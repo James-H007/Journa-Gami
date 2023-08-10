@@ -36,6 +36,8 @@ const JournalInfo = () => {
         setShowMenu(true);
     };
 
+    console.log(sessionUser)
+
 
     useEffect(async () => {
         await dispatch(getJournalById(id))

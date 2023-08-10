@@ -5,13 +5,15 @@ import journalReducer from './journals';
 import entriesReducer from './entries';
 import imagesReducer from './images';
 import petsReducer from './pets';
+import friendRequestReducer from './friends';
 
 const rootReducer = combineReducers({
   session,
   journals: journalReducer,
   entries: entriesReducer,
   images: imagesReducer,
-  pets: petsReducer
+  pets: petsReducer,
+  friends: friendRequestReducer
 });
 
 

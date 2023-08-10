@@ -182,6 +182,21 @@ def create_tag(id):
     print(errors)
     return jsonify({'errors': errors}), 400
 
+# @entry_routes.route('/<int:id>/tags/edit', methods = ["PUT"])
+# @login_required
+# def edit_tag(id):
+#     """
+#     Edit tags for a given entry id
+#     """
+
+#     userId = current_user.id
+#     tag = Tag.query.get(id)
+
+#     if not tag:
+#         return {"Error": "Tag not found"}, 404
+
+
+
 @entry_routes.route('/tags/<int:id>/delete', methods = ["DELETE"])
 @login_required
 def delete_tag(id):

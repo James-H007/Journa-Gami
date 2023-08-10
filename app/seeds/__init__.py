@@ -5,6 +5,7 @@ from .images import seed_images, undo_images
 from .journals import seed_journals, undo_journals
 from .pets import seed_pets, undo_pets
 from .tags import seed_tags, undo_tags
+# from .friends import seed_friends, undo_friends
 
 
 from app.models.db import db, environment, SCHEMA
@@ -28,12 +29,14 @@ def seed():
         undo_entries()
         undo_tags()
         undo_images()
+        # undo_friends()
     seed_users()
     seed_pets()
     seed_journals()
     seed_entries()
     seed_tags()
     seed_images()
+    # seed_friends()
     # Add other seed functions here
 
 
@@ -46,4 +49,5 @@ def undo():
     undo_entries()
     undo_tags()
     undo_images()
+    # undo_friends()
     # Add other undo functions here

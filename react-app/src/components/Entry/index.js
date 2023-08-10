@@ -128,14 +128,14 @@ const EntryPage = () => {
                                     <div className="entry-info-1-header">Mood</div>
                                     <div className="entry-info-mood">{mood}</div>
                                 </div>
-                                <div className="entry-info-1-tags-container">
+                                {/* <div className="entry-info-1-tags-container">
                                     <div className="entry-info-1-header">Tags</div>
                                     {entry.tags.map((tag, i) => (
                                         <div key={i} className="tag-name">
                                             {tag.tagName}
                                         </div>
                                     ))}
-                                </div>
+                                </div> */}
                             </div>
 
                         </div>
