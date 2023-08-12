@@ -13,7 +13,7 @@ const JournalDelete = ({ id }) => {
     const { closeModal } = useModal()
     const history = useHistory()
 
-    console.log(id)
+    // console.log(id)
     const handleDelete = async (e) => {
         e.preventDefault()
         await dispatch(removeJournalById(id))

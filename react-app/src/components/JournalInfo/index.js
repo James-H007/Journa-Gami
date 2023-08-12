@@ -30,7 +30,7 @@ const JournalInfo = () => {
     const sessionUser = useSelector(state => state.session.user)
     const ulRef = useRef();
     const graphic = "https://cdna.artstation.com/p/assets/images/images/064/652/984/large/reza-afshar-0012.jpg?1688450401"
-    console.log(currentJournal)
+    // console.log(currentJournal)
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);

@@ -6,6 +6,8 @@ import supper from "../../assets/ungasupper.gif"
 import statica from "../../assets/static.gif"
 import bath from "../../assets/ungabath.gif"
 import dance from "../../assets/ungaDance.gif"
+import canyon from "../../assets/ungagrandcanyon.gif"
+import star from "../../assets/ungastar.gif"
 
 
 import { useEffect, useState } from "react"
@@ -32,7 +34,7 @@ const VirtualPet = () => {
     const currentPet = useSelector(state => state.pets.myPet)
     const allPets = useSelector(state => state.pets.allPets)
 
-    const activities = [diner, bath, dance]
+    const activities = [diner, bath, dance, canyon]
     const eating = [cafe, supper]
 
     useEffect(async () => {
@@ -128,7 +130,7 @@ const VirtualPet = () => {
                 setPetActivity(activities[randomActivity])
             }, 500)
 
-        }, 15000)
+        }, 10000)
         return () => clearInterval(intervalId)
     }, []);
 
