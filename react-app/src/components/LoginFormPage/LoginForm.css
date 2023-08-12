@@ -13,7 +13,8 @@
     font-family: 'Rubik';
     background: black url(https://cdn.discordapp.com/attachments/1116804623211184308/1138593486262763520/Unga_background_4.png);
     background-size: 100%;
-    animation: panning 100s infinite linear
+    animation: panning 100s infinite linear;
+
 }
 
 .login-form {
@@ -27,11 +28,13 @@
     width: 20%;
     border-radius: 10px;
     padding: 20px;
+    border: 1px solid white
 }
 
 .login-header {
     color: white;
-    font-size: 50px;
+    font-size: 42px;
+    margin-bottom: 0px;
 }
 
 .login-form-input {
@@ -43,6 +46,13 @@
     background-color: rgb(245, 245, 245);
     font-size: 25px;
     font-family: 'Rubik';
+}
+
+.login-graphic {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0px;
+
 }
 
 .demo-login {

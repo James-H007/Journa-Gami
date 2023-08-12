@@ -6,6 +6,7 @@ import './LoginForm.css';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import OpenModalButton from "../OpenModalButton";
 import SignupFormModal from "../SignupFormModal";
+import idle from "../../assets/ungaidle.gif"
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -74,6 +75,13 @@ function LoginFormPage() {
 
         <form onSubmit={handleSubmit} className="login-form">
           <h1 className="login-header">Log In</h1>
+          <div className="login-graphic">
+            <img src={idle} alt="pet" />
+            <img src={idle} alt="pet" />
+            <img src={idle} alt="pet" />
+
+          </div>
+
           <ul>
             {/* {Object.values(errors).map((error, idx) => (
               <li key={idx} className="error">{error}</li>

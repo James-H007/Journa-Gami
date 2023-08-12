@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux"
 import { getAllFriendsThunk, getFriendRequestsThunk, getOutgoingFriendRequestsThunk, postAcceptFriendRequestThunk, postDeclineFriendRequestThunk } from "../../store/friends";
+import check from "../../assets/check-solid.svg"
+import x from "../../assets/x-solid.svg"
 
 const Inbox = ({ currentUser, allUsers, friend }) => {
     const dispatch = useDispatch();
@@ -45,8 +47,8 @@ const Inbox = ({ currentUser, allUsers, friend }) => {
                                     <div className="search-li" >
                                         <p className="search-title">{request.sender.username} would like to add you!</p>
                                         <div>
-                                            <button onClick={() => { acceptFR(request.id) }}>Accept</button>
-                                            <button onClick={() => { declineFR(request.id) }}>Decline</button>
+                                            <img src={check} className="add-user" onClick={() => { acceptFR(request.id) }} />
+                                            <img src={x} className="add-user" onClick={() => { declineFR(request.id) }} />
                                         </div>
                                     </div>
                                 )}

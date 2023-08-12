@@ -9,6 +9,7 @@ import pet from '../../assets/crow-solid.svg'
 import logouticon from '../../assets/logout.svg'
 import { logout } from "../../store/session";
 import user from '../../assets/user-solid.svg'
+import info from "../../assets/info.svg"
 
 import './Navigation.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -45,6 +46,9 @@ function Navigation({ isLoaded }) {
 					</li> */}
 					<li>
 						<NavLink exact to="/pet"><img src={pet} alt="pet" className='profile-button' /> </NavLink>
+					</li>
+					<li>
+						<NavLink exact to="/info"><img src={info} alt="info" className='profile-button' /></NavLink>
 					</li>
 					<li>
 						<img src={logouticon} onClick={handleLogout} alt="logout" className='profile-button' />
