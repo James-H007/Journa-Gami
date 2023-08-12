@@ -50,7 +50,7 @@ const JournalEditFormModal = () => {
             title: title,
             cover: cover
         }
-        console.log(updatedJournal)
+        // console.log(updatedJournal)
         // const data = await dispatch(createJournal(form));
         const data = await dispatch(editAJournal(currentJournal.id, updatedJournal))
         await dispatch(getUserJournals())

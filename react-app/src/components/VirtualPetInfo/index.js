@@ -3,7 +3,7 @@ import "./virtualPetInfo.css"
 import virtualPet from "../../assets/unga.png"
 
 const VirtualPetInfo = ({ pet }) => {
-    console.log(pet)
+    // console.log(pet)
     return (
         <>
             <div className="pet-info-wrapper">

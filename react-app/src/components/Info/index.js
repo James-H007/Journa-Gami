@@ -73,7 +73,6 @@ const Info = () => {
                         <img src={idle} className="idle" alt="idle" />
                     </div>
                 </div>
-
             </div>
         </div >
     )
