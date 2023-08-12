@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { deleteFriendThunk, getAllFriendsThunk, getFriendRequestsThunk, getOutgoingFriendRequestsThunk } from "../../store/friends";
 import { getAllUsers } from "../../store/session";
+import deleteFriend from "../../assets/unfriend.svg"
 
 
 const FriendList = ({ currentUser, allUsers, friend }) => {
@@ -28,7 +29,7 @@ const FriendList = ({ currentUser, allUsers, friend }) => {
                         <>
                             <div className="search-li" key={friend.id}>
                                 <p className="search-title">{friend.username}</p>
-                                <button onClick={() => { unfriend(friend.id) }}>Unfriend</button>
+                                <img src={deleteFriend} className="add-user" onClick={() => { unfriend(friend.id) }} />
                             </div>
                         </>
                     ))}

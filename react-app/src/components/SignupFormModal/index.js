@@ -43,7 +43,7 @@ function SignupFormModal() {
 				await console.log(errors)
 			} else {
 				closeModal();
-				history.push("/journals")
+				history.push("/pet")
 			}
 		} else {
 			setErrors([
