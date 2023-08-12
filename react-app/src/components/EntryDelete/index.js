@@ -11,8 +11,8 @@ const EntryDelete = ({ id, journalId }) => {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     const history = useHistory()
-    console.log(journalId)
-    console.log(journal)
+    // console.log(journalId)
+    // console.log(journal)
     useEffect(() => {
         if (journalId) {
             setJournal(journalId)

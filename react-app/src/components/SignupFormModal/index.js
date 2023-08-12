@@ -40,7 +40,7 @@ function SignupFormModal() {
 			const data = await dispatch(signUp(username, email, password));
 			if (data) {
 				setErrors(data);
-				await console.log(errors)
+				// await console.log(errors)
 			} else {
 				closeModal();
 				history.push("/pet")

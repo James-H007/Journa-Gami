@@ -177,7 +177,7 @@ export const getUserFRThunk = (id) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        console.log(data)
+        // console.log(data)
         dispatch(getAUserFriendRequests(data.friend_requests))
     }
     else {
@@ -222,7 +222,7 @@ export const getFriendRequestsThunk = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(getFriendRequests(data.friend_requests))
-        console.log(data)
+        // console.log(data)
         return data
     } else {
         const data = await response.json()

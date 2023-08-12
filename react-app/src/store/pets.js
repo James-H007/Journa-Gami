@@ -71,9 +71,9 @@ export const getUserPet = () => async (dispatch) => {
     })
 
     if (response.ok) {
-        console.log(response)
+        // console.log(response)
         const { pet } = await response.json()
-        console.log(pet)
+        // console.log(pet)
         dispatch(getMyPet(pet))
         return pet
     }
@@ -109,7 +109,7 @@ export const makePet = (formData) => async (dispatch) => {
     })
 
     if (response.ok) {
-        console.log(response)
+        // console.log(response)
         const { pet } = await response.json()
         dispatch(createPet(pet))
         return pet
