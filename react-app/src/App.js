@@ -16,6 +16,7 @@ import EntryDelete from "./components/EntryDelete";
 import VirtualPet from "./components/VirtualPet";
 import Friend from "./components/Friend";
 import Info from "./components/Info";
+import EntryImage from "./components/EntryImage";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function App() {
             </Route>
             <Route path="/pet">
               <VirtualPet />
+            </Route>
+            <Route path="/entries/image-create/:id">
+              <EntryImage />
             </Route>
             <Route path="/entries/:id/edit">
               <EntryEdit />

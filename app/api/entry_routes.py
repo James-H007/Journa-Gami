@@ -4,6 +4,9 @@ from app.forms.entry_form import EntryForm
 from app.forms.tag_form import TagForm
 from app.forms.image_form import EntryImageForm
 from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.utils import secure_filename
+from ..aws_s3_bucket import s3, bucket
+import os
 
 entry_routes = Blueprint('entries', __name__)
 
@@ -260,25 +263,60 @@ def create_image(id):
     Create image based on entry id
     """
 
-    images = EntryImage.query.filter_by(entry_id = id).all()
-    if (images.length >= 4):
-        return {'Error': "Max amount of images have been reached"}
+    # images = EntryImage.query.filter_by(entry_id = id).all()
+    # if (images.length >= 4):
+    #     return {'Error': "Max amount of images have been reached"}
 
     form = EntryImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        image = EntryImage(
+    # if form.validate_on_submit():
+    #     image = EntryImage(
+    #         entry_id = id,
+    #         image_url = form.data["image_url"]
+    #     )
+
+    #     db.session.add(image)
+    #     db.session.commit()
+    #     return jsonify({'image': image.to_dict()})
+
+    # errors = form.errors
+    # print(errors)
+    # return jsonify({'errors': errors}), 400
+
+    if 'file' in request.files:
+        file = request.files['file']
+        if file.filename == '':
+            return {"error": "No file selected"}, 400
+        filename = secure_filename(file.filename)
+        file.save(filename)
+
+        s3.upload_file(
+            Bucket='journagami',
+            Filename=filename,
+            Key=filename
+        )
+        url = f"https://{bucket}.s3.us-west-1.amazonaws.com/{filename}"
+
+        form = EntryImageForm(
             entry_id = id,
-            image_url = form.data["image_url"]
+            image_url = url
         )
 
-        db.session.add(image)
+        db.session.add(form)
         db.session.commit()
-        return jsonify({'image': image.to_dict()})
 
-    errors = form.errors
-    print(errors)
-    return jsonify({'errors': errors}), 400
+        try:
+            os.remove(filename)
+        except Exception as e:
+            print(f"Error occurred while deleting file: {e}")
+
+        return jsonify({'image': form.to_dict()}, 201)
+    else:
+        errors = form.errors
+        print(errors)
+        return jsonify({'errors': errors}), 400
+
+
 
 @entry_routes.route('/images/<int:id>', methods = ["EDIT"])
 @login_required
