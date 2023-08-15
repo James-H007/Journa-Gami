@@ -36,7 +36,7 @@ const EntryEdit = () => {
                 setIsAuth(true)
             }
         }
-    }, [])
+    }, [sessionUser, currentEntry])
 
     useEffect(() => {
         if (isLoaded && currentEntry) {
