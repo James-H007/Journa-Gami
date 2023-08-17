@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import loading from "../../assets/ungaloading.gif"
 import { getEntryById } from "../../store/entries";
 import backroom from "../../assets/backroom.gif"
+import { createImageByEntry } from "../../store/images";
 
 
 const EntryImage = () => {
@@ -21,6 +22,7 @@ const EntryImage = () => {
     const currentEntry = useSelector(state => state.entries.currentEntry)
     const sessionUser = useSelector(state => state.session.user)
 
+    // console.log(currentEntry)
     useEffect(async () => {
         await dispatch(getEntryById(id))
         await setIsLoaded(true)
@@ -61,6 +63,31 @@ const EntryImage = () => {
         return file && file.size <= maxSize;
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // console.log(selectedFile)
+        // console.log(id)
+        if (!selectedFile) {
+            setFileSizeError("Please select a file.");
+
+            return;
+        }
+
+        if (!validateFileSize(selectedFile)) {
+            setFileSizeError("File size should be under 20MB.")
+
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', selectedFile)
+        // console.log(formData)
+        await dispatch(createImageByEntry(id, formData))
+
+
+    }
+
     return (
         <>
             {!isLoaded && (
@@ -98,7 +125,10 @@ const EntryImage = () => {
                                 <label htmlFor="fileInput">
                                     Upload an image for your entry?
                                 </label>
-                                {fileSizeError && <div className="errors">{fileSizeError}</div>}
+                                {fileSizeError && <div className="error">{fileSizeError}</div>}
+                                <div onClick={handleSubmit} className="entry-submit-button">
+                                    Finish ➡️
+                                </div>
                             </form>
                         </div>
                     </div>

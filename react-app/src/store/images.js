@@ -108,13 +108,13 @@ export const getImageById = (id) => async (dispatch) => {
 
 //@entry_routes.route('/<int:id>/images', methods = ["POST"])
 export const createImageByEntry = (entry_id, formData) => async (dispatch) => {
+    console.log(formData)
     const response = await fetch(`/api/entries/${entry_id}/images`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
+        body: formData
     })
+
+    // console.log(response)
 
     if (response.ok) {
         const { image } = await response.json()

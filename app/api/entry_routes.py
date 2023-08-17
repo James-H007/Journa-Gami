@@ -282,7 +282,6 @@ def create_image(id):
     # errors = form.errors
     # print(errors)
     # return jsonify({'errors': errors}), 400
-
     if 'file' in request.files:
         file = request.files['file']
         if file.filename == '':

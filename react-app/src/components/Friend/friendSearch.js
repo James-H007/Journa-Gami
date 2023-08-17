@@ -57,14 +57,14 @@ const FriendSearch = () => {
     };
 
     const isAdded = (userId) => {
-        console.log(userId)
+        // console.log(userId)
         if (friend.requests || friend.outgoing) {
 
             if (friend.requests.length > 0) {
                 if (friend.requests.some((request) => (request.receiver.id === userId))
                     ||
                     friend.requests.some((request) => (request.sender.id === userId))) {
-                    console.log("hit")
+                    // console.log("hit")
                     return true
                 }
             }

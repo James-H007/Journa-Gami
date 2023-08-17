@@ -24,6 +24,7 @@ const EntryPage = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [weather, setWeather] = useState("none")
     const [mood, setMood] = useState("😐")
+    const [image, setImage] = useState("")
     const [content, setContent] = useState("")
     const dispatch = useDispatch()
     const { id } = useParams()
@@ -37,7 +38,7 @@ const EntryPage = () => {
     const snow = "https://cdn.discordapp.com/attachments/1116804623211184308/1129361555369230336/snow.gif"
 
 
-    // console.log(entry)
+    console.log(entry)
     useEffect(async () => {
         await dispatch(getEntryById(id))
         await setIsLoaded(true)
@@ -90,6 +91,7 @@ const EntryPage = () => {
 
             }
         }
+
         setIsLoaded2(true)
     }, [isLoaded, entry])
 
