@@ -4,6 +4,10 @@ A web application where users can journal and take care of a virtual pet at the 
 
 ## Overview
 ---
+## Live Link 
+
+![ungaidle](https://github.com/James-H007/Journa-Gami/assets/110857645/eff6ac31-de83-4edd-8ed4-a16d59880fdd) https://journa-gami.onrender.com/ ![ungaidle](https://github.com/James-H007/Journa-Gami/assets/110857645/eff6ac31-de83-4edd-8ed4-a16d59880fdd)
+---
 ### Start with a pet!
 <img src="https://cdn.discordapp.com/attachments/808899350176071680/1141543502820425848/image.png" />
 
