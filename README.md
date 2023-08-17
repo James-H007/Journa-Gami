@@ -1,4 +1,3 @@
-![image](https://github.com/James-H007/Journa-Gami/assets/110857645/e70c5a9c-8346-48f0-86e5-c781034ade69)
 # Journa-Gami
 
 A web application where users can journal and take care of a virtual pet at the same time. This app was created to encourage journaling with some sense of responsibility. Inspired by Tamagotchi. I've always wanted an application where you could journal more while growing alongside another pet. It wasn't until now, that I had the necessary skills in order to create such a dream.
