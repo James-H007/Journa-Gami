@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "aws-sdk": "^2.1436.0",
     "html-to-md": "^0.8.3",
     "html-to-react": "^1.6.0",
     "http-proxy-middleware": "^1.0.5",

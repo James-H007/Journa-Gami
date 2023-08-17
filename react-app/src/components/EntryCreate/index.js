@@ -123,7 +123,7 @@ const EntryCreate = () => {
         }
         await dispatch(getUserEntries())
         if (data) {
-            await history.push(`/entries/${data.id}`)
+            await history.push(`/entries/image-create/${data.id}`)
         }
         // history.push(`/journals/${id}`)
     }
@@ -188,6 +188,7 @@ const EntryCreate = () => {
                                 />
                             </div>
                         </div>
+
                         <div className="entry-form-banner">
                             <h2 className="banner-header">Add a Banner ! 🎨</h2>
                             <input
