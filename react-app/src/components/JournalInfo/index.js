@@ -36,7 +36,7 @@ const JournalInfo = () => {
         setShowMenu(true);
     };
 
-    console.log(sessionUser)
+    // console.log(sessionUser)
 
 
     useEffect(async () => {

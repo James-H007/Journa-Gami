@@ -28,7 +28,7 @@ const EntryPage = () => {
     const [content, setContent] = useState("")
     const dispatch = useDispatch()
     const { id } = useParams()
-    // console.log(id)
+
 
     const sessionUser = useSelector(state => state.session.user)
     const entry = useSelector(state => state.entries.currentEntry)
@@ -38,7 +38,7 @@ const EntryPage = () => {
     const snow = "https://cdn.discordapp.com/attachments/1116804623211184308/1129361555369230336/snow.gif"
 
 
-    console.log(entry)
+
     useEffect(async () => {
         await dispatch(getEntryById(id))
         await setIsLoaded(true)
