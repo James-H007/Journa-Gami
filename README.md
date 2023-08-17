@@ -85,3 +85,21 @@ A web application where users can journal and take care of a virtual pet at the 
    ```
 
 9. Then navigate to http://localhost:3000
+
+
+## Tech Stack
+| Technology | Use Case                                             | 
+| ---------- | ---------------------------------------------------- |
+| Python     | Used for backend logic                               |
+| JavaScript | Frontend interactivity                               |
+| HTML       | Markup language for web development                  |
+| CSS        | Stylesheet language for web development              |
+| React      | Javascript library for building user interfaces      |
+| Redux      | Javascript library for managing application state    |
+| Flask      | Python web framework                                 |
+| Socket.io  | Connections to facilitate real-time communication    |
+| Git        | Version control system                               |
+| Postgres   | Relational database management system                |
+| SQLAlchemy | SQL toolkit and Object-Relational Mapping (ORM)      |
+| Sqlite     | Lightweight in-process library                       |
+| Node.js    | Javascript runtime environment                       |
