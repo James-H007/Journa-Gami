@@ -123,7 +123,7 @@ const EntryCreate = () => {
         }
         await dispatch(getUserEntries())
         if (data) {
-            await history.push(`/entries/image-create/${data.id}`)
+            await history.push(`/entries/${data.id}`)
         }
         // history.push(`/journals/${id}`)
     }
