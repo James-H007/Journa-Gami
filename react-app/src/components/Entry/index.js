@@ -88,8 +88,11 @@ const EntryPage = () => {
             if (entry.content) {
                 const mdContent = htmlToMd(entry.content)
                 setContent(mdContent)
-
             }
+            if (entry.images.length > 0) {
+                setImage(entry.images[0].imageUrl)
+            }
+
         }
 
         setIsLoaded2(true)
@@ -118,7 +121,7 @@ const EntryPage = () => {
                     <div className="entry-container">
                         <div className="entry-info-1">
                             <div className="entry-info-1-image-container">
-                                <img src={cafe} alt="entry-image" className="entry-image" />
+                                <img src={image} alt="entry-image" className="entry-image" />
                             </div>
 
                             <div className="entry-info-1-information">

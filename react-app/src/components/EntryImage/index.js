@@ -15,7 +15,6 @@ const EntryImage = () => {
     const [imageEmbedCode, setImageEmbedCode] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const [isAuth, setIsAuth] = useState(false)
-
     const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -83,7 +82,9 @@ const EntryImage = () => {
         const formData = new FormData();
         formData.append('file', selectedFile)
         // console.log(formData)
-        await dispatch(createImageByEntry(id, formData))
+        const data = await dispatch(createImageByEntry(id, formData))
+
+        await history.push(`/entries/${id}`)
 
 
     }

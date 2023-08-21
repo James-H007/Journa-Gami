@@ -282,38 +282,39 @@ def create_image(id):
     # errors = form.errors
     # print(errors)
     # return jsonify({'errors': errors}), 400
-    if 'file' in request.files:
-        file = request.files['file']
-        if file.filename == '':
-            return {"error": "No file selected"}, 400
-        filename = secure_filename(file.filename)
-        file.save(filename)
+    if form.validate_on_submit():
+        if 'file' in request.files:
+            file = request.files['file']
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+            filename = secure_filename(file.filename)
+            file.save(filename)
 
-        s3.upload_file(
-            Bucket='journagami',
-            Filename=filename,
-            Key=filename
-        )
-        url = f"https://{bucket}.s3.us-west-1.amazonaws.com/{filename}"
+            s3.upload_file(
+                Bucket='journagami',
+                Filename=filename,
+                Key=filename
+            )
+            url = f"https://{bucket}.s3.us-west-1.amazonaws.com/{filename}"
 
-        form = EntryImageForm(
-            entry_id = id,
-            image_url = url
-        )
+            form = EntryImage(
+                entry_id = id,
+                image_url = url
+            )
 
-        db.session.add(form)
-        db.session.commit()
+            db.session.add(form)
+            db.session.commit()
 
-        try:
-            os.remove(filename)
-        except Exception as e:
-            print(f"Error occurred while deleting file: {e}")
+            try:
+                os.remove(filename)
+            except Exception as e:
+                print(f"Error occurred while deleting file: {e}")
 
-        return jsonify({'image': form.to_dict()}, 201)
-    else:
-        errors = form.errors
-        print(errors)
-        return jsonify({'errors': errors}), 400
+            return jsonify({'image': form.to_dict()}, 201)
+        else:
+            errors = form.errors
+            print(errors)
+            return jsonify({'errors': errors}), 400
 
 
 
