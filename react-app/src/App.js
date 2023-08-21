@@ -46,9 +46,9 @@ function App() {
             <Route path="/pet">
               <VirtualPet />
             </Route>
-            {/* <Route path="/entries/image-create/:id">
+            <Route path="/entries/image-create/:id">
               <EntryImage />
-            </Route> */}
+            </Route>
             <Route path="/entries/:id/edit">
               <EntryEdit />
             </Route>
